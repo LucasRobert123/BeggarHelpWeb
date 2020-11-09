@@ -1,0 +1,217 @@
+@charset "ISO-8859-1";
+
+@import "./global.css";
+
+::-webkit-scrollbar {
+    width: 0px !important;
+    height: 0px !important;
+}
+
+.container-dashboard-doador{
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--white);
+    display: grid;
+    grid-template-rows: 180px 1fr;
+}
+
+.container-dashboard-doador header{
+    background-color: var(--green-primary);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.container-dashboard-doador header .group-selects{
+    width: 600px;
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    bottom: -20px;
+}
+
+.container-dashboard-doador header .group-selects select{
+   width: 140px;
+   height: 45px;
+   border: 1px solid #E5E4DD;
+   color: var(--green-secondary);
+   outline: none;
+   border-radius: 7px;
+   padding-left: 8px;
+   font-weight: 500;
+}
+
+.container-dashboard-doador header .group-selects .search{
+    border: 0;
+    width: 65px;
+    height: 45px;
+    background-color: var(--white);
+    border: 1px solid #E5E4DD;
+    border-radius: 7px;
+    color: var(--green-secondary);
+    outline: none;
+    cursor: pointer;
+    transition: all 200ms linear;
+}
+
+.container-dashboard-doador header .group-selects .search:hover{
+    filter: brightness(95%);
+}
+
+.container-dashboard-doador header .group-selects .search img{
+    width: 25px;
+    height: 25px;
+}
+
+.container-dashboard-doador header h1{
+    max-width: 600px;
+    font-weight: 700;
+    font-size: 30px;
+    color: var(--white);
+}
+
+.container-dashboard-doador header .user{
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+
+.container-dashboard-doador header .user p{
+   margin-right: 5px;
+   color: var(--white);
+}
+
+.container-dashboard-doador header .user .profile{
+    width: 35px;
+    height: 35px;
+    border-radius: 17.5px;
+    background-color: #C4C4C4;
+    position: relative;
+}
+
+.container-dashboard-doador header .user .list-options{
+    display: none;
+    position: absolute;
+    bottom: -38px;
+    right: 0;
+    width: 100px;
+    height: auto;
+    background-color: var(--white);
+}
+
+.container-dashboard-doador header .user .list-options .item{
+    display: flex;
+    padding: 5px;
+}
+
+.container-dashboard-doador header .user .list-options .item img{
+    width: 25px;
+    height: 25px;
+}
+
+.container-dashboard-doador header .user .list-options .item p{
+    color: rgba(0, 0, 0, 0.8);
+    margin-left: 5px;
+}
+
+.container-dashboard-doador main{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: auto;
+    margin-top: 24px;
+}
+
+/* CARD*/
+.container-dashboard-doador main .card-user{
+    width: 600px;
+    height: auto;
+    border: 1px solid var(--green-primary);
+    margin: 16px 0;
+    border-radius: 7px;
+    padding: 20px;
+    position: relative;
+}
+
+.container-dashboard-doador main .card-user header{
+   background-color: var(--white);
+   display: block;
+}
+
+.container-dashboard-doador main .card-user .avatar{
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.container-dashboard-doador main .card-user p{
+    color: var(--green-primary);
+    font-weight: 500;
+    font-size: 20px;
+}
+
+.container-dashboard-doador main .card-user .avatar div{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #C4C4C4;
+    margin-right: 8px;
+}
+
+.container-dashboard-doador  main .card-user .icon-plus{
+   position: absolute;
+   top: 0px;
+   right: 0px;
+   margin: 0;
+   transition: all 200ms linear;
+}
+
+.container-dashboard-doador  main .card-user .icon-plus:hover{
+    filter: brightness(90%);
+}
+
+.container-dashboard-doador  main .card-user .icon-plus img{
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+
+.container-dashboard-doador  main .card-user .content{
+    display: flex;
+    padding: 20px 0;
+}
+
+.container-dashboard-doador  main .card-user .content p{
+    color: var(--green-terciary);
+    margin-left: 8px;
+}
+
+.container-dashboard-doador  main .card-user .btn{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.container-dashboard-doador  main .card-user .btn button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--white);
+    background-color: var(--green-secondary);
+    border: 0;
+    width: 150px;
+    height: 40px;
+    border-radius: 7px;
+    cursor: pointer;
+    transition: all 200ms linear;
+}
+
+.container-dashboard-doador  main .card-user .btn button:hover{
+    filter: brightness(95%);
+}
+

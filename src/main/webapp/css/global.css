@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Raleway:wght@600&display=swap');
+
+:root{
+    --green-primary:#14B20E;
+    --green-secondary:#31CF2B;
+    --green-terciary:#5BF255;
+    --black:#000;
+    --white:#fff;
+    --background-input-login:#FAFAFC;
+    --border-input-login:#E6E6F0;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background-color: #E5E4DD
+}
+
+body, input , textarea, h1,h2,h3, select{
+    font: 600 18px Poppins, sans-serif;
+}
+
+button{
+    font: 600 18px Raleway, sans-serif;
+}

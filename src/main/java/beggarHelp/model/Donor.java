@@ -1,0 +1,34 @@
+package beggarHelp.model;
+
+import javax.persistence.Entity;
+
+
+@Entity
+public class Donor extends User {
+	 String cpf;
+
+	    public Donor() {}
+	    
+		
+		public Donor(int id, String profilePicture, String name, String phone, String email, String password,
+				String neighborhood, String street, String number, String city, String uf, String cpf) {
+			super(id, profilePicture, name, phone, email, password, neighborhood, street, number, city, uf);
+			this.cpf = cpf;
+		}
+
+
+		public String getCpf() {
+			return cpf;
+		}
+
+		public void setCpf(String cpf) {
+			this.cpf = cpf;
+		}
+
+
+		@Override
+		public String toString() {
+			return super.toString() + "Donor [cpf=" + cpf + "]";
+		}
+	    
+}

@@ -1,0 +1,24 @@
+@charset "ISO-8859-1";
+
+@import "./global.css";
+
+.container-sucess{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.container-sucess img{
+    width: 70%;
+    height: 70%;
+}
+
+.container-sucess p{
+    color: rgba(91,242,85, 0.7);
+    font-size: 50px;
+    font-weight: 700;
+    margin-top: 8px;
+}

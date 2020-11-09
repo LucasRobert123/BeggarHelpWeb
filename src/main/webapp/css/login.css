@@ -1,0 +1,156 @@
+@import './global.css';
+
+.container-login{
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    overflow: hidden;
+}
+
+.body-img{
+    background-color: var(--green-secondary);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.body-img img{
+    width: 75%;
+    height: 75%;
+}
+
+.body-form{
+   padding: 0px 130px;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+}
+
+.body-form form{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+}
+
+.body-form form h1{
+    font-weight: 700;
+    font-size: 45px;
+    color: var(--green-primary);
+    margin-bottom: 16px;
+}
+
+
+
+.body-form form input[type=email], input[type=password]{
+    height: 70px;
+    background: var(--background-input-login);
+    border: 1px solid var(--border-input-login);
+    padding-left: 12px;
+    outline-width: medium;
+    outline-color: var(--border-input-login);
+}
+
+.body-form form input[type=email]{
+    border-radius: 7px 7px 0px 0px;
+}
+
+.body-form form input[type=password]{
+    border-radius: 0px 0px 7px 7px;
+    margin-bottom: 12px;
+}
+
+.body-form form input::placeholder{
+    font-size: 24px;
+    color: #E5E4DD;
+    font-weight: 500;
+}
+
+.body-form form div{
+   display: flex;
+   align-items: center;
+   margin-bottom: 16px;
+}
+
+/* Checkbox*/
+
+.body-form form .checkmark{
+    width: 24px;
+    height: 24px;
+    border: 1px solid #D3E2E5;
+    border-radius: 8px;
+    background: #F5F8FA;
+    position: relative;
+    transition: background-color 0.4s;
+    cursor: pointer;
+}
+
+#check:checked ~ .checkmark{
+    background: #37C77F;
+}
+
+.body-form form .checkmark::after{
+    content: "";
+    position: absolute;
+    width: 5px;
+    height: 12px;
+    border-right: 3px solid #fff;
+    border-bottom: 3px solid #fff;
+    top: 41%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotateZ(40deg) scale(5);
+    opacity: 0;
+    transition: all 0.4s;
+}
+
+#check:checked ~ .checkmark::after{
+    opacity: 1;
+    transform: translate(-50%, -50%) rotateZ(40deg) scale(1);
+}
+
+/**/
+
+.body-form form button{
+    background: var(--green-secondary);
+    border-radius: 7px;
+    height: 50px;
+    text-align: center;
+    border: 0;
+    color: var(--white);
+    cursor: pointer;
+    transition: all 200ms linear;
+}
+
+.body-form form button:hover{
+   filter: brightness(95%);
+}
+
+.body-form form div p{
+    color: var(--black);
+    font-size: 18px;
+    margin-left: 5px;
+}
+
+.body-form footer{
+    margin-top: 30px;
+}
+
+.body-form footer p{
+    color: #6A6180;
+}
+
+.body-form footer a{
+    color: var(--green-secondary);
+    cursor: pointer;
+    transition: all 200ms linear
+}
+
+.body-form footer a:hover{
+    filter: brightness(95%);
+}
+
+
+
+
