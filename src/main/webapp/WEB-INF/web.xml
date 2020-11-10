@@ -4,4 +4,46 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
+  <servlet>
+  	<servlet-name>SignUp</servlet-name>
+  	<display-name>SignUp</display-name>
+  	<description></description>
+  	<servlet-class>beggarHelp.servlets.SignUp</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>SignIn</servlet-name>
+  	<display-name>SignIn</display-name>
+  	<description></description>
+  	<servlet-class>beggarHelp.servlets.SignIn</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>Donor</servlet-name>
+  	<display-name>Donor</display-name>
+  	<description></description>
+  	<servlet-class>beggarHelp.servlets.Donor</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>SignUp</servlet-name>
+  	<url-pattern>/SignUp</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>SignUp</servlet-name>
+  	<url-pattern>/signup</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>SignIn</servlet-name>
+  	<url-pattern>/SignIn</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>SignIn</servlet-name>
+  	<url-pattern>/signin</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>Donor</servlet-name>
+  	<url-pattern>/Donor</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>Donor</servlet-name>
+  	<url-pattern>/donor</url-pattern>
+  </servlet-mapping>
 </web-app>

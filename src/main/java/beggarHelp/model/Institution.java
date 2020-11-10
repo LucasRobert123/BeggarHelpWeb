@@ -1,5 +1,6 @@
 package beggarHelp.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -14,15 +15,18 @@ String cnpj,description;
 	@OneToMany
 	List<Donor> doadores;
 	
-	public Institution() {}
+	
+	public Institution() {
+		doadores = new ArrayList<Donor>();
+	}
 
-	public Institution(int id, String profilePicture, String name, String phone, String email, String password,
-			String neighborhood, String street, String number, String city, String uf, String cnpj, String description,
-			List<Donor> doadores) {
-		super(id, profilePicture, name, phone, email, password, neighborhood, street, number, city, uf);
+	public Institution(/*String profilePicture,*/ String name, String phone, String email, String password,
+			String neighborhood, String street, String number, String city, String uf, String cnpj, String description
+			) {
+		super(/*profilePicture,*/ name, phone, email, password, neighborhood, street, number, city, uf);
 		this.cnpj = cnpj;
 		this.description = description;
-		this.doadores = doadores;
+		
 	}
 
 	public String getCnpj() {
@@ -45,14 +49,14 @@ String cnpj,description;
 		return doadores;
 	}
 
-	public void setDoadores(List<Donor> doadores) {
-		 this.doadores = doadores;
+	public void setDoadores(Donor doador) {
+		 this.doadores.add(doador);
 	}
 
 	@Override
 	public String toString() {
 		return super.toString() + "Institution [cnpj=" + cnpj + ", \ndescription=" + description + 
-				                ", doadores=" + doadores + "]";
+				                 "]";
 	}
 
 	

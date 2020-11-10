@@ -68,6 +68,8 @@
    margin: 5px 3px;
    border-radius: 7px;
    outline-color: var(--green-primary);
+   color:var(--green-secondary);
+   padding-left: 8px;
 }
 
 .container-sign-up form input[type="email"]{
@@ -75,7 +77,6 @@
 }
 
 .container-sign-up form input::placeholder{
-    padding-left: 8px;
     font-weight: 500;
     color: var(--green-secondary);
 }
@@ -94,6 +95,7 @@
     color: var(--green-secondary);
     font-weight: 500;
     padding-left: 8px;
+    outline-color: var(--green-primary);
 }
 
 .container-sign-up form textarea{
@@ -107,6 +109,12 @@
     padding: 3px 0px 0px 8px;
     outline-color: var(--green-primary);
 }
+
+
+.container-sign-up form #cpf, #cnpj, #description{
+    display: none;
+}
+
 
 .container-sign-up form textarea::placeholder{
     color: var(--green-secondary);
@@ -125,6 +133,7 @@
     border: 0;
     cursor: pointer;
     transition: all 200ms linear;
+    outline:none;
 }
 
 .container-sign-up form .group-btns button:hover{

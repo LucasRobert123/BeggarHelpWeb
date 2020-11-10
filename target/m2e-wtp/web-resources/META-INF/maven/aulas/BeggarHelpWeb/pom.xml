@@ -22,8 +22,7 @@
 			<version>1.2</version>
 			<scope>provided</scope>
 		</dependency>
-		
-			<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java https://mvnrepository.com/artifact/mysql/mysql-connector-java/5.1.49 -->
+
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
@@ -42,8 +41,7 @@
 			<groupId>javax.xml.bind</groupId>
 			<artifactId>jaxb-api</artifactId>
 			<version>2.3.0</version>
-		</dependency>
-		
+		</dependency>		
 	</dependencies>
 	
   <build>

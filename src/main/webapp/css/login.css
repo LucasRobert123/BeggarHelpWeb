@@ -10,7 +10,7 @@
 
 .body-img{
     background-color: var(--green-secondary);
-
+    /*background-image: linear-gradient(0.25turn, #5BF255, #31CF2B, #14B20E);*/
     display: flex;
     justify-content: center;
     align-items: center;
@@ -44,17 +44,21 @@
 
 
 
-.body-form form input[type=email], input[type=password]{
+.body-form form input[type=email], input[type=password], select{
     height: 70px;
     background: var(--background-input-login);
     border: 1px solid var(--border-input-login);
     padding-left: 12px;
     outline-width: medium;
     outline-color: var(--border-input-login);
+    color: #E5E4DD;
 }
 
-.body-form form input[type=email]{
+.body-form  form select{
     border-radius: 7px 7px 0px 0px;
+    font-size: 22px;
+    font-weight: 500;
+    padding-left: 4px;
 }
 
 .body-form form input[type=password]{
@@ -63,12 +67,12 @@
 }
 
 .body-form form input::placeholder{
-    font-size: 24px;
+    font-size: 22px;
     color: #E5E4DD;
     font-weight: 500;
 }
 
-.body-form form div{
+.body-form form .group-checkbox{
    display: flex;
    align-items: center;
    margin-bottom: 16px;
@@ -121,6 +125,7 @@
     color: var(--white);
     cursor: pointer;
     transition: all 200ms linear;
+    outline:none;
 }
 
 .body-form form button:hover{

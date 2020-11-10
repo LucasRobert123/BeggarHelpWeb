@@ -1,25 +1,28 @@
 package beggarHelp.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 
-@Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+import javax.persistence.MappedSuperclass;
+
+@MappedSuperclass
+
 public class User {
+	
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	int id;
 	String profilePicture,name, phone, email,password, neighborhood, street, number,city,uf;
 	
 	public User() {}
 	
 	
-    public User(int id, String profilePicture, String name, String phone, String email, String password,
+    public User(/*String profilePicture,*/ String name, String phone, String email, String password,
 			String neighborhood, String street, String number, String city, String uf) {
 		super();
-		this.id = id;
-		this.profilePicture = profilePicture;
+		//this.profilePicture = profilePicture;
 		this.name = name;
 		this.phone = phone;
 		this.email = email;

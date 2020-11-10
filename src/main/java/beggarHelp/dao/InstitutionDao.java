@@ -1,40 +1,71 @@
 package beggarHelp.dao;
 
 import java.util.List;
+import java.util.function.Consumer;
+import java.util.stream.Stream;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Query;
 
 import beggarHelp.model.Institution;
 
+
 public class InstitutionDao implements Dao<Institution> {
+
+private EntityManager em;
+	
+	public InstitutionDao() {
+		em = JPAUtil.getEntityManagerFactory().createEntityManager();
+	}
 
 	@Override
 	public Institution get(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		return em.find(Institution.class,id);
 	}
 
 	@Override
 	public List<Institution> getAll() {
-		// TODO Auto-generated method stub
-		return null;
+		return em.createQuery("FROM Institution",Institution.class ).getResultList();
 	}
 
 	@Override
-	public void save(Institution t) {
-		// TODO Auto-generated method stub
-		
+	public void save(Institution instance) {
+		 executeInsideTransaction(em -> em.persist(instance));	
 	}
 
 	@Override
-	public void update(Institution t) {
-		// TODO Auto-generated method stub
-		
+	public void update(Institution instance) {
+		 executeInsideTransaction(em -> em.merge(instance));	
 	}
 
 	@Override
-	public void delete(Institution t) {
-		// TODO Auto-generated method stub
-		
+	public void delete(Institution instance) {
+		 executeInsideTransaction(em -> em.remove(instance));	
 	}
 
+	private void executeInsideTransaction(Consumer<EntityManager> action ) {
+		EntityTransaction tx = em.getTransaction();
+		
+		try {
+			tx.begin();
+			action.accept(em);
+			tx.commit();
+		}
+		catch(RuntimeException e){
+			tx.rollback();
+			throw e;
+		}
+	}
+	
+	
+
+	public List<Institution> logar(String email, String password) {
+		
+		Query q = em.createQuery("SELECT i FROM Institution i WHERE i.email = :email AND i.password = :password");
+		q.setParameter("email", email);
+		q.setParameter("password", password);
+		
+		return q.getResultList();
+	}
 }
