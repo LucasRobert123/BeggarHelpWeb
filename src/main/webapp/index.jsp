@@ -10,6 +10,14 @@
     <title>Login</title>
 </head>
 <body>
+    <%
+      if(session.getAttribute("typeUser") != null){
+         String logged = (String)session.getAttribute("typeUser");
+    
+       response.sendRedirect(logged);
+     
+      }
+    %>
     <div class="container-login">
         <div class="body-img">
           <img src="./assets/authentication.svg" alt="auth">
@@ -27,7 +35,7 @@
                 <input placeholder="Senha" type="password" name="password"/>
 
                  <div class="group-checkbox">
-                    <input type="checkbox" id="check" hidden/>
+                    <input type="checkbox" id="check" hidden name="check"/>
                     <label for="check" class="checkmark"></label>
                     <p>Lembrar-me</p>
                 </div>

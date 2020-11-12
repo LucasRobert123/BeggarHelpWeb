@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import org.hibernate.Session;
 
+import beggarHelp.dao.DonorDao;
 import beggarHelp.dao.InstitutionDao;
 import beggarHelp.model.Institution;
 
@@ -21,7 +22,7 @@ public class Donor extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -31,8 +32,13 @@ public class Donor extends HttpServlet {
         beggarHelp.model.Donor user = (beggarHelp.model.Donor) session.getAttribute("user");
          
 		InstitutionDao iDao = new InstitutionDao();
-		iDao.get(idInstitution).setDoadores(user);
+		Institution i = iDao.get(idInstitution);
+		i.setDoador(user);
 		
+		iDao.update(i);
+		
+		response.sendRedirect("donor.jsp");
 	}
 
 }
+

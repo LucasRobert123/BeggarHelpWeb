@@ -26,49 +26,57 @@ public class SignIn extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
-		
-		String user = request.getParameter("user");
-		
 
-		if(user != null && user.equals("institution")) {
-			
+		String user = request.getParameter("user");
+		String check = "";
+		Boolean logged = false;
+
+		if (request.getParameter("check") != null) {
+			check = request.getParameter("check");
+			logged = check.equals("on") ? true : false;
+		}
+
+		if (user != null && user.equals("institution")) {
+
 			InstitutionDao inst = new InstitutionDao();
 			List<Institution> list = new ArrayList<Institution>();
-			
+
 			list.addAll(inst.logar(email, password));
-			
-			
-			HttpSession session =  request.getSession();
+
+			HttpSession session = request.getSession();
 			session.setAttribute("user", list.get(0));
-			
-			if(list.size() == 1)
-			  response.sendRedirect("institution.jsp");
-		}
-		else if(user != null && user.equals("donor")) {
-			
+
+			if (logged == true)
+				session.setAttribute("typeUser", "institution.jsp");
+
+			if (list.size() == 1)
+				response.sendRedirect("institution.jsp");
+		} 
+		else if (user != null && user.equals("donor")) {
+
 			DonorDao inst = new DonorDao();
 			List<Donor> list = new ArrayList<Donor>();
-			
+
 			list.addAll(inst.logar(email, password));
-			//System.out.println(list.get(0));
-			
-			HttpSession session =  request.getSession();
+
+			HttpSession session = request.getSession();
 			session.setAttribute("user", list.get(0));
-			
-			if(list.size() == 1)
-			  response.sendRedirect("donor.jsp");
+
+			if (logged == true)
+				session.setAttribute("typeUser", "donor.jsp");
+
+			if (list.size() == 1)
+				response.sendRedirect("donor.jsp");
 		}
-		
+
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		 
+
 	}
-	
-	
 
 }

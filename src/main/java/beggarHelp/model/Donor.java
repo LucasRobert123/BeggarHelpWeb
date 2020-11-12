@@ -12,9 +12,9 @@ public class Donor extends User {
 		
 	}
 
-	public Donor(/* String profilePicture, */ String name, String phone, String email, String password,
-			String neighborhood, String street, String number, String city, String uf, String cpf) {
-		super(/* profilePicture, */ name, phone, email, password, neighborhood, street, number, city, uf);
+	public Donor(String profilePicture, String name, String phone, String email, String password,
+			String neighborhood, String street, String number, String city, String uf, String cpf, String status) {
+		super(profilePicture, name, phone, email, password, neighborhood, street, number, city, uf, status);
 		this.cpf = cpf;
 	}
 

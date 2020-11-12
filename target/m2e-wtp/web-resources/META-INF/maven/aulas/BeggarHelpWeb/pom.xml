@@ -1,15 +1,17 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>aulas</groupId>
-  <artifactId>BeggarHelpWeb</artifactId>
-  <packaging>war</packaging>
-  <version>0.0.1-SNAPSHOT</version>
-  <name>BeggarHelpWeb Maven Webapp</name>
-  <url>http://maven.apache.org</url>
-  <dependencies>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>aulas</groupId>
+	<artifactId>BeggarHelpWeb</artifactId>
+	<packaging>war</packaging>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>BeggarHelpWeb Maven Webapp</name>
+	<url>http://maven.apache.org</url>
+	<dependencies>
 		<!-- for web servlet -->
-		<dependency>
+		
+        <dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
 			<version>3.1.0</version>
@@ -41,12 +43,12 @@
 			<groupId>javax.xml.bind</groupId>
 			<artifactId>jaxb-api</artifactId>
 			<version>2.3.0</version>
-		</dependency>		
+		</dependency>
 	</dependencies>
-	
-  <build>
-    <finalName>BeggarHelpWeb</finalName>
-    <plugins>
+
+	<build>
+		<finalName>BeggarHelpWeb</finalName>
+		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.8.1</version>
@@ -56,5 +58,5 @@
 				</configuration>
 			</plugin>
 		</plugins>
-  </build>
+	</build>
 </project>

@@ -93,6 +93,13 @@
     position: relative;
 }
 
+.container-dashboard-doador header .user .profile img{
+    width: 35px;
+    height: 35px;
+    border-radius: 17.5px;
+    object-fit:cover;
+}
+
 .container-dashboard-doador header .user .list-options{
     display: none;
     position: absolute;
@@ -113,9 +120,10 @@
     height: 25px;
 }
 
-.container-dashboard-doador header .user .list-options .item p{
+.container-dashboard-doador header .user .list-options .item a{
     color: rgba(0, 0, 0, 0.8);
     margin-left: 5px;
+    text-decoration:none
 }
 
 .container-dashboard-doador main{
@@ -155,7 +163,7 @@
     font-size: 20px;
 }
 
-.container-dashboard-doador main .card-user .avatar div{
+.container-dashboard-doador main .card-user .avatar img{
     width: 40px;
     height: 40px;
     border-radius: 50%;

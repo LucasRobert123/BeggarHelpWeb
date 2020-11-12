@@ -1,11 +1,13 @@
 package beggarHelp.dao;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.function.Consumer;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
+import javax.servlet.http.HttpServletResponse;
 
 import beggarHelp.model.Donor;
 import beggarHelp.model.Institution;
@@ -62,6 +64,7 @@ public class DonorDao implements Dao<Donor> {
 		q.setParameter("email", email);
 		q.setParameter("password", password);
 
+		System.out.println(q.getResultList());
 		return q.getResultList();
 	}
 

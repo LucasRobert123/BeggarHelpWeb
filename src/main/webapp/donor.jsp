@@ -1,3 +1,4 @@
+<%@page import="beggarHelp.model.Donor"%>
 <%@page import="beggarHelp.dao.InstitutionDao"%>
 <%@page import="beggarHelp.model.Institution"%>
 <%@page import="java.util.ArrayList"%>
@@ -16,22 +17,32 @@
 </head>
 
 <body>
-	<%	
-		List<Institution> list = new ArrayList<Institution>();
-	    InstitutionDao iDao = new InstitutionDao();
-
-	    list.addAll(iDao.getAll());
+	<%
+	    String profile= "";
+	    List<Institution> list = new ArrayList<Institution>();
+	    try{
+	    
+			Donor user = (Donor) session.getAttribute("user");
+		    profile = user.getProfilePicture();
+		    
+		    InstitutionDao iDao = new InstitutionDao();
+		    list.addAll(iDao.getAll());
+	    }
+	    catch(Exception e){
+	    	response.sendRedirect("index.jsp");
+	    }
 	%>
 	<div class="container-dashboard-doador">
 		<header>
 			<h1>Estas são as instituições que você pode ajudar</h1>
 			<div class="user" onmouseover="showListOptions()">
 				<p>usuario.@gmail.com</p>
-				<div class="profile"></div>
+				<img class="profile"
+					src="http://localhost:8081/BeggarHelpWeb/images/<%=profile%>" alt="profile">
 				<div class="list-options" onmouseout="setDisplayNone()">
 					<div class="item">
-						<img src="./assets/power.svg" alt="power">
-						<p>Sair</p>
+						<img src="./assets/power.svg" alt="power"> <a
+							href="exit.jsp">Sair</a>
 					</div>
 				</div>
 			</div>
@@ -59,12 +70,14 @@
 			<%
 				for (Institution institution : list) {
 			%>
-			<form action="donor?id=<%=institution.getId() %>" method="post">
-			    
+			<form action="donor?id=<%=institution.getId()%>" method="post">
+
 				<div class="card-user">
 					<header>
 						<div class="avatar">
-							<div></div>
+							<img
+								src="http://localhost:8081/BeggarHelpWeb/images/<%=institution.getProfilePicture()%>"
+								alt="profile">
 							<p><%=institution.getName()%></p>
 						</div>
 						<div class="icon-plus">

@@ -3,6 +3,7 @@ package beggarHelp.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
@@ -12,7 +13,7 @@ public class Institution extends User {
 
 String cnpj,description;
 	
-	@OneToMany
+	@OneToMany(cascade = CascadeType.REMOVE)
 	List<Donor> doadores;
 	
 	
@@ -20,10 +21,10 @@ String cnpj,description;
 		doadores = new ArrayList<Donor>();
 	}
 
-	public Institution(/*String profilePicture,*/ String name, String phone, String email, String password,
-			String neighborhood, String street, String number, String city, String uf, String cnpj, String description
+	public Institution(String profilePicture,  String name, String phone, String email, String password,
+			String neighborhood, String street, String number, String city, String uf, String cnpj, String description, String status
 			) {
-		super(/*profilePicture,*/ name, phone, email, password, neighborhood, street, number, city, uf);
+		super(profilePicture, name, phone, email, password, neighborhood, street, number, city, uf, status);
 		this.cnpj = cnpj;
 		this.description = description;
 		
@@ -49,7 +50,7 @@ String cnpj,description;
 		return doadores;
 	}
 
-	public void setDoadores(Donor doador) {
+	public void setDoador(Donor doador) {
 		 this.doadores.add(doador);
 	}
 

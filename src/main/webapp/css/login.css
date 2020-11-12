@@ -52,12 +52,13 @@
     outline-width: medium;
     outline-color: var(--border-input-login);
     color: #E5E4DD;
+    font-size: 22px;
+    font-weight: 500;
+    
 }
 
 .body-form  form select{
     border-radius: 7px 7px 0px 0px;
-    font-size: 22px;
-    font-weight: 500;
     padding-left: 4px;
 }
 

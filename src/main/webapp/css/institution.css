@@ -72,9 +72,10 @@
     height: 25px;
 }
 
-.container-dashboard-institution header .user .list-options .item p{
+.container-dashboard-institution header .user .list-options .item a{
     color: rgba(0, 0, 0, 0.8);
     margin-left: 5px;
+    text-decoration:none
 }
 
 .container-dashboard-institution main{
@@ -88,7 +89,7 @@
 /* CARD*/
 .container-dashboard-institution main .card-user{
     width: 500px;
-    height: 200px;
+    height: auto;
     border: 1px solid var(--green-primary);
     margin: 16px 0;
     border-radius: 7px;
@@ -112,7 +113,7 @@
     font-size: 20px;
 }
 
-.container-dashboard-institution main .card-user .avatar div{
+.container-dashboard-institution main .card-user .avatar img{
     width: 40px;
     height: 40px;
     border-radius: 50%;
@@ -132,6 +133,10 @@
     height: 30px;
     cursor: pointer;
     transition: all 200ms linear;
+}
+
+.container-dashboard-institution  main .card-user .icon-plus a{
+	text-decoration:none;
 }
 
 .container-dashboard-institution  main .card-user .icon-plus img:hover{
@@ -159,7 +164,6 @@
     height: 40px;
     display: flex;
     align-items: center;
-    color: var(--white);
     background-color: var(--green-secondary);
     border: 0;
     border-radius: 7px;
@@ -167,6 +171,10 @@
     transition: all 200ms linear;
 }
 
+.container-dashboard-institution  main .card-user .btn-whatsapp button a{
+	 color: var(--white);
+	 text-decoration:none;
+}
 .container-dashboard-institution  main .card-user .btn-whatsapp button:hover{
     filter: brightness(95%);
 }
@@ -177,4 +185,9 @@
     margin-right: 5px;
     margin-left: 8px;
     color: var(--white);
+}
+
+.container-dashboard-institution  main .card-user .btn-whatsapp button a{
+    color: var(--white);
+    text-decoration:none;
 }

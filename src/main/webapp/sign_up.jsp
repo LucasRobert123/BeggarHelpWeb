@@ -15,11 +15,17 @@
 	<div class="container-sign-up">
 		<div class="form-cad">
 			<h1>Cadastre-se</h1>
-			<form action="signup" method="post">
-				<div class="upload-img">
-					<img src="./assets/camera.svg" alt="camera">
-					<p>Selecione sua foto de perfil</p>
-				</div>
+			<form action="signup" method="post" enctype="multipart/form-data">
+				 <label class="upload-img" for="file">
+                    <img src="./assets/camera.svg" alt="camera">
+                    <p>Selecione sua foto de perfil</p>
+                    <input type="file" 
+                           id="file" 
+                           name="file"
+                           accept="image/*"
+                           hidden
+                    /> 
+                </label>
 				<div class="group-input">
 					<input type="text" placeholder="Nome" name="name" autocomplete="off"> 
 					<input type="tel" placeholder="Telefone" name="phone">
