@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 import javax.servlet.http.HttpServletResponse;
+import javax.transaction.Transactional;
 
 import beggarHelp.model.Donor;
 import beggarHelp.model.Institution;
@@ -44,7 +45,20 @@ public class DonorDao implements Dao<Donor> {
 	public void delete(Donor instance) {
 		executeInsideTransaction(em -> em.remove(instance));
 	}
+	
+	
+	public void deleteAux(Donor instance){
+       
+		InstitutionDao iDao = new InstitutionDao();
+		Institution inst = iDao.get(1);
+		
+        em.getTransaction().begin();
+        inst.getDoadores().remove(instance);
+        em.remove(inst);
+        em.getTransaction().commit();
+	}
 
+	
 	private void executeInsideTransaction(Consumer<EntityManager> action) {
 		EntityTransaction tx = em.getTransaction();
 

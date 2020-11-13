@@ -13,6 +13,7 @@
     background-color: var(--white);
     display: grid;
     grid-template-rows: 160px 1fr;
+    position:relative
 }
 
 .container-dashboard-institution header{
@@ -190,4 +191,74 @@
 .container-dashboard-institution  main .card-user .btn-whatsapp button a{
     color: var(--white);
     text-decoration:none;
+}
+
+/* Modal */
+
+.modal-overlay{
+   position: fixed;
+   top: 0;
+   background-color: rgba(0, 0, 0, 0.8);
+   z-index: 2;
+   width: 100vw;
+   height: 100vh;
+
+   display: none;
+   justify-content: center;
+   align-items: center;
+}
+
+.modal-overlay .modal{
+    width: auto;
+    height: auto;
+    background-color: var(--white);
+    border-radius: 7px;
+    border: 3px solid var(--green-secondary);
+    padding: 16px;
+    position:relative
+}
+
+.modal-overlay .modal #close{
+	position:absolute;
+	width:50px;
+	height:50px;
+	top:-15px;
+	right:-15px;
+	cursor:pointer;
+	border-radius:50%;
+	border:0;
+	background-color:transparent;
+	outline:none
+}
+
+.modal-overlay .modal #close img{
+	width:100%;
+	height:100%;
+}
+
+
+.modal-overlay .modal h1{
+    color: var(--green-secondary);
+    font-size: 32px;
+    font-weight: 700;
+    text-align: center;
+}
+
+.modal-overlay .modal .items-content{
+    display: flex;
+    align-items: center;
+    padding: 8px;
+}
+
+.modal-overlay .modal .items-content img{
+    width: 40px;
+    height: 40px;
+    color: #EBCE34;
+}
+
+.modal-overlay .modal .items-content p{
+    font-size: 26px;
+    font-weight: 500;
+    color: var(--green-secondary);
+    margin-left: 8px;
 }

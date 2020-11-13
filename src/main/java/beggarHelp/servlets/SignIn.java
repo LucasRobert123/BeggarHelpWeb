@@ -12,10 +12,12 @@ import javax.servlet.http.HttpSession;
 
 import org.hibernate.Session;
 
+import beggarHelp.dao.Dao;
 import beggarHelp.dao.DonorDao;
 import beggarHelp.dao.InstitutionDao;
 import beggarHelp.model.Donor;
 import beggarHelp.model.Institution;
+import beggarHelp.model.User;
 
 public class SignIn extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -57,10 +59,10 @@ public class SignIn extends HttpServlet {
 		} 
 		else if (user != null && user.equals("donor")) {
 
-			DonorDao inst = new DonorDao();
+			DonorDao donor = new DonorDao();
 			List<Donor> list = new ArrayList<Donor>();
 
-			list.addAll(inst.logar(email, password));
+			list.addAll(donor.logar(email, password));
 
 			HttpSession session = request.getSession();
 			session.setAttribute("user", list.get(0));
@@ -78,5 +80,7 @@ public class SignIn extends HttpServlet {
 			throws ServletException, IOException {
 
 	}
+	
+		
 
 }

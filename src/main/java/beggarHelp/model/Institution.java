@@ -13,7 +13,7 @@ public class Institution extends User {
 
 String cnpj,description;
 	
-	@OneToMany(cascade = CascadeType.REMOVE)
+	@OneToMany(cascade = CascadeType.ALL)
 	List<Donor> doadores;
 	
 	

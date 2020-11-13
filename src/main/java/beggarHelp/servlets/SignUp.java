@@ -21,6 +21,7 @@ import beggarHelp.dao.DonorDao;
 import beggarHelp.dao.InstitutionDao;
 import beggarHelp.model.Donor;
 import beggarHelp.model.Institution;
+import beggarHelp.model.User;
 
 
 @MultipartConfig
@@ -41,21 +42,7 @@ public class SignUp extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		String str = "C:\\Users\\Lucas\\Documents\\Faculdade\\6_periodo\\Linguagem_e_Tecnicas_de_Programacao\\Projetos\\BeggarHelpWeb\\src\\main\\webapp\\images";
-		String fileName = "";
-		File uploadDir = new File(str);
-		if (!uploadDir.exists()) uploadDir.mkdir();
-		
-		
-		for(Part part : request.getParts()){
-	        
-	        if(part.getName().equals("file")) {
-        		InputStream is =  part.getInputStream();
-        		fileName = part.getSubmittedFileName();
-        		Files.copy(is, new File(str,fileName).toPath());
-        	    
-        	}
-	    }
+		String fileName = saveImageUpload(request);
 		
 		String user = request.getParameter("user");
 
@@ -74,18 +61,23 @@ public class SignUp extends HttpServlet {
 		response.sendRedirect("index.jsp");
 	}
 	
+	private static void setDataNotEspecific(HttpServletRequest request, User obj) {
+		obj.setName(request.getParameter("name"));
+		obj.setPhone(request.getParameter("phone"));
+		obj.setEmail(request.getParameter("email"));
+		obj.setPassword(request.getParameter("password"));
+		obj.setNeighborhood(request.getParameter("neighborhood"));
+		obj.setStreet(request.getParameter("street"));
+		obj.setNumber(request.getParameter("number"));
+		obj.setCity(request.getParameter("city"));
+		obj.setUf(request.getParameter("uf"));
+	}
+	
 	private static void saveInstitution(HttpServletRequest request, String fileName) {
 		Institution inst = new Institution();
 
-		inst.setName(request.getParameter("name"));
-		inst.setPhone(request.getParameter("phone"));
-		inst.setEmail(request.getParameter("email"));
-		inst.setPassword(request.getParameter("password"));
-		inst.setNeighborhood(request.getParameter("neighborhood"));
-		inst.setStreet(request.getParameter("street"));
-		inst.setNumber(request.getParameter("number"));
-		inst.setCity(request.getParameter("city"));
-		inst.setUf(request.getParameter("uf"));
+		setDataNotEspecific(request, inst);
+		
 		inst.setCnpj(request.getParameter("cnpj"));
 		inst.setDescription(request.getParameter("description"));
 	    inst.setStatus("active");
@@ -98,15 +90,8 @@ public class SignUp extends HttpServlet {
 	private static void saveDonor(HttpServletRequest request, String fileName) {
 		Donor donor = new Donor();
 
-		donor.setName(request.getParameter("name"));
-		donor.setPhone(request.getParameter("phone"));
-		donor.setEmail(request.getParameter("email"));
-		donor.setPassword(request.getParameter("password"));
-		donor.setNeighborhood(request.getParameter("neighborhood"));
-		donor.setStreet(request.getParameter("street"));
-		donor.setNumber(request.getParameter("number"));
-		donor.setCity(request.getParameter("city"));
-		donor.setUf(request.getParameter("uf"));
+		setDataNotEspecific(request, donor);
+		
 		donor.setCpf(request.getParameter("cpf"));
         donor.setStatus("active");
 		donor.setProfilePicture(fileName);
@@ -115,4 +100,29 @@ public class SignUp extends HttpServlet {
 		donorDao.save(donor);
 	}
 
+	private static String saveImageUpload(HttpServletRequest request) {
+		String str = "C:\\Users\\Lucas\\Documents\\Faculdade\\6_periodo\\Linguagem_e_Tecnicas_de_Programacao\\Projetos\\BeggarHelpWeb\\src\\main\\webapp\\images";
+		String fileName = "";
+		File uploadDir = new File(str);
+		if (!uploadDir.exists()) uploadDir.mkdir();
+		
+		
+		try {
+			for(Part part : request.getParts()){
+			    
+			    if(part.getName().equals("file")) {
+					InputStream is =  part.getInputStream();
+					fileName = part.getSubmittedFileName();
+					Files.copy(is, new File(str,fileName).toPath());
+				    
+				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ServletException e) {
+			e.printStackTrace();
+		}
+		
+		return fileName;
+	}
 }

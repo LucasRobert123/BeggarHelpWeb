@@ -81,7 +81,7 @@
 							<p><%=institution.getName()%></p>
 						</div>
 						<div class="icon-plus">
-							<img src="./assets/plus.svg" alt="plus">
+							<img src="./assets/plus.svg" alt="plus" onclick="showModal(<%=institution.getId()%>, 'donor')">
 						</div>
 					</header>
 					<div class="content">
@@ -99,14 +99,39 @@
 			%>
 
 		</main>
+		
+		<div class="modal-overlay">
+            <div class="modal">
+                <h1>Mais dados</h1>
+
+                 <button id="close" onclick="setVisible()">
+				   <img src="./assets/close.svg" alt="close"/>
+				</button>
+                <div class="items-content">
+                    <img src="./assets/institution.svg" alt="person" />
+                    <p id="name"></p>
+                </div>
+
+                <div class="items-content">
+                    <img src="./assets/phone.svg" alt="phone" />
+                    <p id="phone"></p>
+                </div>
+
+                <div class="items-content">
+                    <img src="./assets/email.svg" alt="email" />
+                    <p id="email"></p>
+                </div>
+
+                <div class="items-content">
+                    <img src="./assets/point.svg" alt="point" />
+                    <p id="point"></p>
+                </div>
+            </div>
+        </div>
+        
 	</div>
 </body>
-<script>
-	function showListOptions() {
-		document.querySelector(".list-options").style.display = "block"
-	}
-	function setDisplayNone() {
-		document.querySelector(".list-options").style.display = "none"
-	}
+<script src="./mainscript.js">
+	
 </script>
 </html>
