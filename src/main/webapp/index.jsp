@@ -14,7 +14,7 @@
       if(session.getAttribute("typeUser") != null){
          String logged = (String)session.getAttribute("typeUser");
     
-       response.sendRedirect(logged);
+         response.sendRedirect(logged);
      
       }
     %>

@@ -17,12 +17,13 @@
 			<h1>Cadastre-se</h1>
 			<form action="signup" method="post" enctype="multipart/form-data">
 				 <label class="upload-img" for="file">
-                    <img src="./assets/camera.svg" alt="camera">
-                    <p>Selecione sua foto de perfil</p>
+                    <img id="preview" src="./assets/camera.svg" alt="camera">
+                    <p id="text-select">Selecione sua foto de perfil</p>
                     <input type="file" 
                            id="file" 
                            name="file"
                            accept="image/*"
+                           onchange="previewImage(this.files)"
                            hidden
                     /> 
                 </label>
@@ -77,23 +78,8 @@
 	</div>
 </body>
 
-<script>
-	function showDataComplement() {
-		let value = document.querySelector("#selectUser").value;
-
-		if (value == "institution") {
-			document.querySelector("#cnpj").style.display = "block"
-			document.querySelector("#description").style.display = "block"
-			document.querySelector("#cpf").style.display = "none"
-			document.querySelector("#cpf").value = ""
-		} else {
-			document.querySelector("#cnpj").style.display = "none"
-			document.querySelector("#description").style.display = "none"
-			document.querySelector("#cnpj").value = ""
-			document.querySelector("#description").value = ""
-		    document.querySelector("#cpf").style.display = "block"
-		}
-	}
+<script type="text/javascript" src="./mainscript.js">
+	
 </script>
 
 </html>

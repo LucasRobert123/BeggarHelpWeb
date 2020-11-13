@@ -50,7 +50,7 @@ public class SignIn extends HttpServlet {
 
 			HttpSession session = request.getSession();
 			session.setAttribute("user", list.get(0));
-
+			
 			if (logged == true)
 				session.setAttribute("typeUser", "institution.jsp");
 
@@ -66,7 +66,8 @@ public class SignIn extends HttpServlet {
 
 			HttpSession session = request.getSession();
 			session.setAttribute("user", list.get(0));
-
+			
+			
 			if (logged == true)
 				session.setAttribute("typeUser", "donor.jsp");
 

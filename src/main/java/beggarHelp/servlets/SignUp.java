@@ -42,7 +42,11 @@ public class SignUp extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		String path = request.getSession().getServletContext().getRealPath("/");
+		
+		
 		String fileName = saveImageUpload(request);
+		System.out.println(fileName);
 		
 		String user = request.getParameter("user");
 
@@ -102,6 +106,7 @@ public class SignUp extends HttpServlet {
 
 	private static String saveImageUpload(HttpServletRequest request) {
 		String str = "C:\\Users\\Lucas\\Documents\\Faculdade\\6_periodo\\Linguagem_e_Tecnicas_de_Programacao\\Projetos\\BeggarHelpWeb\\src\\main\\webapp\\images";
+		
 		String fileName = "";
 		File uploadDir = new File(str);
 		if (!uploadDir.exists()) uploadDir.mkdir();

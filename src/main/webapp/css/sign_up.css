@@ -55,7 +55,7 @@
     margin: 0;
 }
 
-.container-sign-up form .upload-img  p{
+.container-sign-up form .upload-img  #text-select{
    color: var(--green-secondary);
    font-weight: 600;
    font-size: 24px;

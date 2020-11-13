@@ -117,7 +117,7 @@
 
 	</div>
 </body>
-<script src="./mainscript.js">
+<script type="text/javascript" src="./mainscript.js">
 	
 </script>
 </html>
