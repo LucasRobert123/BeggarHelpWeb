@@ -13,24 +13,30 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="css/institution.css">
 <title>Dashboard</title>
+
+<script type="text/javascript">
+function load(){
+	<%
+	    List<Donor> donors = new ArrayList<Donor>();
+		String profile = "";
+		Institution user = new Institution();
+		try {
+			user = (Institution) session.getAttribute("user");
+		
+			profile = user.getProfilePicture();
+		
+			donors.addAll(user.getDoadores());
+		
+		} catch (Exception e) {
+			response.sendRedirect("index.jsp");
+		}
+	%>
+}
+</script>
 </head>
 
 <body>
-	<%
-		List<Donor> donors = new ArrayList<Donor>();
-	String profile = "";
-
-	try {
-		Institution user = (Institution) session.getAttribute("user");
-
-		profile = user.getProfilePicture();
-
-		donors.addAll(user.getDoadores());
-
-	} catch (Exception e) {
-		response.sendRedirect("index.jsp");
-	}
-	%>
+    
 	<div class="container-dashboard-institution">
 		<header id="header">
 			<h1>Estes são os interessados em doar a sua instituição</h1>
@@ -60,8 +66,9 @@
 						<p><%=d.getName()%></p>
 					</div>
 					<div class="icon-plus">
-						<a href="institution?id=<%=d.getId()%>&delete=true"> <img
-							src="./assets/delete.svg" alt="delete">
+						<a
+							href="institution?id=<%=d.getId()%>&delete=true&idInst=<%=user.getId()%>">
+							<img src="./assets/delete.svg" alt="delete">
 						</a> <img src="./assets/plus.svg" alt="plus"
 							onclick="showModal(<%=d.getId()%>, 'institution')">
 					</div>
@@ -87,12 +94,12 @@
 
 		<div class="modal-overlay">
 			<div class="modal">
-			    
+
 				<h1>Mais dados</h1>
 				<button id="close" onclick="setVisible()">
-				   <img src="./assets/close.svg" alt="close"/>
+					<img src="./assets/close.svg" alt="close" />
 				</button>
-               
+
 				<div class="items-content">
 					<img src="./assets/person.svg" alt="person" />
 					<p id="name"></p>
@@ -117,7 +124,7 @@
 
 	</div>
 </body>
-<script type="text/javascript" src="./mainscript.js">
+<script type="text/javascript" src="./scripts/mainscript.js">
 	
 </script>
 </html>

@@ -9,6 +9,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding:20px
 }
 
 .container-sucess img{
@@ -21,4 +22,28 @@
     font-size: 50px;
     font-weight: 700;
     margin-top: 8px;
+}
+
+.container-sucess .btn-to-login{
+	width:100%;
+	display:flex;
+	justify-content:flex-end;
+	align-items:center
+}
+
+.container-sucess .btn-to-login a{
+	text-decoration:none;
+	border-radius:7px;
+	padding:10px;
+	background-color:var(--green-terciary);
+	color:var(--white);
+	display:flex;
+	align-items:center
+	
+}
+
+
+.container-sucess .btn-to-login img{
+	width:30px;
+	height:30px
 }

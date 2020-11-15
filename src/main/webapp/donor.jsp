@@ -15,22 +15,20 @@
 <link rel="stylesheet" href="css/donor.css">
 <title>Dashboard</title>
 </head>
-
+<script src="./scripts/load.js">
+  
+</script>
 <body>
 	<%
-	    String profile= "";
-	    List<Institution> list = new ArrayList<Institution>();
-	    try{
-	    
-			Donor user = (Donor) session.getAttribute("user");
-		    profile = user.getProfilePicture();
-		    
-		    InstitutionDao iDao = new InstitutionDao();
-		    list.addAll(iDao.getAll());
-	    }
-	    catch(Exception e){
-	    	response.sendRedirect("index.jsp");
-	    }
+	 String profile="";
+    try{
+    
+		Donor user = (Donor) session.getAttribute("user");
+	    profile = user.getProfilePicture();
+    }
+    catch(Exception e){
+    	response.sendRedirect("index.jsp");
+    }
 	%>
 	<div class="container-dashboard-doador">
 		<header>
@@ -49,55 +47,25 @@
 
 			<div class="group-selects">
 
-				<select name="" id="">
+				<select name="" 
+				        id="ufs"
+				        onchange="setSelectCidades(this.value)"
+				>
 					<option value="" hidden selected>UF</option>
-					<option value="">MG</option>
-					<option value="">SP</option>
-				</select> <select name="" id="">
+				</select> 
+				<select name="" id="cities">
 					<option value="" hidden selected>Cidade</option>
-					<option value="">Campos Gerais</option>
-					<option value="">Alfenas</option>
 				</select>
 
-				<button class="search">
+				<button class="search" onclick="filterInstitutions">
 					<img src="./assets/search.svg" alt="">
 				</button>
 			</div>
 
 		</header>
-		<main>
+		<main id="list-institutions">
 
-			<%
-				for (Institution institution : list) {
-			%>
-			<form action="donor?id=<%=institution.getId()%>" method="post">
-
-				<div class="card-user">
-					<header>
-						<div class="avatar">
-							<img
-								src="http://localhost:8081/BeggarHelpWeb/images/<%=institution.getProfilePicture()%>"
-								alt="profile">
-							<p><%=institution.getName()%></p>
-						</div>
-						<div class="icon-plus">
-							<img src="./assets/plus.svg" alt="plus" onclick="showModal(<%=institution.getId()%>, 'donor')">
-						</div>
-					</header>
-					<div class="content">
-						<p><%=institution.getDescription()%></p>
-					</div>
-					<div class="btn">
-						<button type="submit">Quero doar</button>
-					</div>
-
-				</div>
-			</form>
-
-			<%
-				}
-			%>
-
+			<%--Lista --%>
 		</main>
 		
 		<div class="modal-overlay">
@@ -131,7 +99,10 @@
         
 	</div>
 </body>
-<script type="text/javascript" src="./mainscript.js">
+
+
+<script type="text/javascript" src="./scripts/mainscript.js">
 	
 </script>
+
 </html>

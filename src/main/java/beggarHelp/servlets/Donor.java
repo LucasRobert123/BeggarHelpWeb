@@ -1,6 +1,8 @@
 package beggarHelp.servlets;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -23,19 +25,35 @@ public class Donor extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		
+      String list = request.getParameter("list");
+      String json = "";
+     
+      if(list.equals("true")) {
+    	  List<Institution> listInst = new ArrayList<Institution>();
+    	    
+		  InstitutionDao iDao = new InstitutionDao();
+	      listInst.addAll(iDao.getAll());
+	      
+	      json = new Gson().toJson(listInst);
+      }
+	  else {
 		int id = Integer.parseInt(request.getParameter("id"));
 
-		Institution donor = getInstitution(id);
-		String json = new Gson().toJson(donor);
+		Institution inst = getInstitution(id);
+		json = new Gson().toJson(inst);
 
-		response.setContentType("application/json");
-		response.setCharacterEncoding("UTF-8");
-		response.getWriter().write(json);
+		
+	  }
+      
+      response.setContentType("application/json");
+	  response.setCharacterEncoding("UTF-8");
+	  response.getWriter().write(json);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		 
 		int idInstitution = Integer.parseInt(request.getParameter("id"));
 
 		HttpSession session = request.getSession();
@@ -48,6 +66,7 @@ public class Donor extends HttpServlet {
 		iDao.update(i);
 
 		response.sendRedirect("donor.jsp");
+		
 	}
 
 	private static Institution getInstitution(int id) {

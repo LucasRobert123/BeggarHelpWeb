@@ -27,6 +27,7 @@ import beggarHelp.model.User;
 @MultipartConfig
 
 public class SignUp extends HttpServlet {
+	
 	private static final long serialVersionUID = 1L;
 
 	public SignUp() {
@@ -46,7 +47,6 @@ public class SignUp extends HttpServlet {
 		
 		
 		String fileName = saveImageUpload(request);
-		System.out.println(fileName);
 		
 		String user = request.getParameter("user");
 
@@ -62,7 +62,7 @@ public class SignUp extends HttpServlet {
 			
 		}
 
-		response.sendRedirect("index.jsp");
+		response.sendRedirect("sucess_sign_up.jsp");
 	}
 	
 	private static void setDataNotEspecific(HttpServletRequest request, User obj) {
@@ -113,18 +113,22 @@ public class SignUp extends HttpServlet {
 		
 		
 		try {
-			for(Part part : request.getParts()){
-			    
+			
+			for(Part part : request.getParts())
+			{
 			    if(part.getName().equals("file")) {
 					InputStream is =  part.getInputStream();
 					fileName = part.getSubmittedFileName();
 					Files.copy(is, new File(str,fileName).toPath());
-				    
-				}
+			    }
 			}
-		} catch (IOException e) {
+		} 
+		catch (IOException e) 
+		{
 			e.printStackTrace();
-		} catch (ServletException e) {
+		} 
+		catch (ServletException e) 
+		{
 			e.printStackTrace();
 		}
 		

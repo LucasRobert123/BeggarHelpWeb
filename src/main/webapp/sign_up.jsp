@@ -9,6 +9,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="css/sign_up.css">
 <title>Cadastro</title>
+<script type="text/javascript" src="./scripts/load.js">
+  
+  
+</script>
 </head>
 
 <body>
@@ -47,8 +51,12 @@
 				</div>
 
 				<div class="group-input">
-					<input type="text" placeholder="Cidade" name="city">
-					 <input type="text" placeholder="Uf" name="uf">
+					<select name="uf" id="ufs" onchange="setSelectCidades(this.value)")>
+					   <option value="" hidden selected>UF</option>
+				    </select> 
+					<select name="city" id="cities">
+						<option value="" hidden selected>Cidade</option>
+					</select>
 				</div>
 
 				<select name="user" id="selectUser" onchange="showDataComplement()">
@@ -65,7 +73,7 @@
 				placeholder="Descricão" name="description"></textarea>
 
 				<div class="group-btns">
-					<button>VOLTAR</button>
+					<a href="index.jsp">VOLTAR</a>
 					<button type="submit">SALVAR</button>
 				</div>
 
@@ -78,7 +86,7 @@
 	</div>
 </body>
 
-<script type="text/javascript" src="./mainscript.js">
+<script type="text/javascript" src="./scripts/mainscript.js">
 	
 </script>
 

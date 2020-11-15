@@ -12,8 +12,15 @@
 </head>
 <body>
     <div class="container-sucess">
+        <div class="btn-to-login">
+           <a href="index.jsp">
+            <img src="./assets/arrow-right.svg" alt="logar"/>
+           </a>
+          
+        </div>
         <img src="./assets/success-cadastro.svg" alt="sucess">
         <p>Cadastrado com sucesso!</p>
+        
     </div>
 </body>
 </html>

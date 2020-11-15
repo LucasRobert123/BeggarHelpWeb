@@ -124,7 +124,7 @@
     display: flex;
 }
 
-.container-sign-up form .group-btns button{
+.container-sign-up form .group-btns button,a{
     width: 100%;
     margin: 5px 3px;
     height: 40px;
@@ -136,11 +136,11 @@
     outline:none;
 }
 
-.container-sign-up form .group-btns button:hover{
+.container-sign-up form .group-btns button:hover, a:hover{
     filter: brightness(80%);
 }
 
-.container-sign-up form .group-btns button:nth-child(1){
+.container-sign-up form .group-btns button:nth-child(1), a{
    background-color: #464746;
 }
 
@@ -148,6 +148,14 @@
     background-color: var(--green-secondary);
 }
 
+
+.container-sign-up form .group-btns a{
+	display:flex;
+	justify-content:center;
+	align-items:center;
+	text-decoration:none;
+	font-weight:500
+}
 
 .container-sign-up .txt-img{
    background-color: var(--green-secondary);

@@ -8,7 +8,6 @@ function setDisplayNone() {
 }
 
 async function showModal(id, servelet) {
-
 	const { name, email, phone, street, number, neighborhood } = await getData(id, servelet);
 
 	const address = street + ", " + number + ", " + neighborhood;
@@ -22,7 +21,7 @@ async function showModal(id, servelet) {
 }
 
 async function getData(id, servelet) {
-	return fetch(`http://localhost:8081/BeggarHelpWeb/${servelet}?id=${id}`)
+	return fetch(`http://localhost:8081/BeggarHelpWeb/${servelet}?id=${id}&delete=false`)
 		.then(response => {
 			return response.json()
 
@@ -64,7 +63,18 @@ function showDataComplement() {
 			document.querySelector("#description").value = ""
 		    document.querySelector("#cpf").style.display = "block"
 		}
+}
+
+
+function clearSelect(){
+	let select = document.getElementById("cities");
+	let length = select.options.length;
+	for (i = length-1; i >= 0; i--) {
+	  select.options[i] = null;
 	}
+}
+
+
 
 
 
