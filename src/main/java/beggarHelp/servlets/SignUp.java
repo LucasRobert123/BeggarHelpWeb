@@ -3,12 +3,7 @@ package beggarHelp.servlets;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
-import java.nio.file.FileSystems;
 import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Collection;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -19,10 +14,12 @@ import javax.servlet.http.Part;
 
 import beggarHelp.dao.DonorDao;
 import beggarHelp.dao.InstitutionDao;
+import beggarHelp.model.Alert;
 import beggarHelp.model.Donor;
 import beggarHelp.model.Institution;
 import beggarHelp.model.User;
 
+import static javax.swing.JOptionPane.showMessageDialog;
 
 @MultipartConfig
 
@@ -43,25 +40,30 @@ public class SignUp extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		String path = request.getSession().getServletContext().getRealPath("/");
-		
-		
-		String fileName = saveImageUpload(request);
-		
-		String user = request.getParameter("user");
-
-
-		if (user != null && user.equals("institution")) {
+		try {
+			String path = request.getSession().getServletContext().getRealPath("/");
 			
-           saveInstitution(request, fileName);
-           
+			
+			String fileName = saveImageUpload(request);
+			
+			String user = request.getParameter("user");
+		
+		
+			if (user != null && user.equals("institution")) {
+				
+		       saveInstitution(request, fileName);
+		       
+			}
+			else if (user != null && user.equals("donor")) { 
+				
+				saveDonor(request, fileName);
+				
+			}
 		}
-		else if (user != null && user.equals("donor")) { 
-			
-			saveDonor(request, fileName);
-			
+		catch(Exception e) {
+			System.out.println(e.getMessage());
+			Alert.alertSimple("Ocorreu um erro! Tente novamente mais tarde");
 		}
-
 		response.sendRedirect("sucess_sign_up.jsp");
 	}
 	
@@ -84,7 +86,6 @@ public class SignUp extends HttpServlet {
 		
 		inst.setCnpj(request.getParameter("cnpj"));
 		inst.setDescription(request.getParameter("description"));
-	    inst.setStatus("active");
 		inst.setProfilePicture(fileName);
 	    
 		InstitutionDao instDao = new InstitutionDao();
@@ -97,7 +98,6 @@ public class SignUp extends HttpServlet {
 		setDataNotEspecific(request, donor);
 		
 		donor.setCpf(request.getParameter("cpf"));
-        donor.setStatus("active");
 		donor.setProfilePicture(fileName);
         
 		DonorDao donorDao = new DonorDao();

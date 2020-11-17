@@ -5,29 +5,31 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-
+import javax.persistence.JoinTable;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 
 @Entity
 public class Institution extends User {
 
-String cnpj,description;
-	
-	@OneToMany(cascade = CascadeType.ALL)
+	String cnpj, description;
+
+	@ManyToMany
+	@JoinTable(name = "institution_donor", joinColumns = { @JoinColumn(name = "Institution_id") }, inverseJoinColumns = {
+			@JoinColumn(name = "doadores_id") })
 	List<Donor> doadores;
-	
-	
+
 	public Institution() {
 		doadores = new ArrayList<Donor>();
 	}
 
-	public Institution(String profilePicture,  String name, String phone, String email, String password,
-			String neighborhood, String street, String number, String city, String uf, String cnpj, String description, String status
-			) {
-		super(profilePicture, name, phone, email, password, neighborhood, street, number, city, uf, status);
+	public Institution(String profilePicture, String name, String phone, String email, String password,
+			String neighborhood, String street, String number, String city, String uf, String cnpj, String description,
+			String status) {
+		super(profilePicture, name, phone, email, password, neighborhood, street, number, city, uf);
 		this.cnpj = cnpj;
 		this.description = description;
-		
+
 	}
 
 	public String getCnpj() {
@@ -51,15 +53,12 @@ String cnpj,description;
 	}
 
 	public void setDoador(Donor doador) {
-		 this.doadores.add(doador);
+		this.doadores.add(doador);
 	}
 
 	@Override
 	public String toString() {
-		return super.toString() + "Institution [cnpj=" + cnpj + ", \ndescription=" + description + 
-				                 "]";
+		return super.toString() + "Institution [cnpj=" + cnpj + ", \ndescription=" + description + "]";
 	}
 
-	
-	
 }

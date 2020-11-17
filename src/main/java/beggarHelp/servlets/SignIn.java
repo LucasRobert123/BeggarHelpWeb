@@ -1,5 +1,6 @@
 package beggarHelp.servlets;
 
+import java.awt.Toolkit;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,15 +10,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 
 import org.hibernate.Session;
 
 import beggarHelp.dao.Dao;
 import beggarHelp.dao.DonorDao;
 import beggarHelp.dao.InstitutionDao;
+import beggarHelp.model.Alert;
 import beggarHelp.model.Donor;
 import beggarHelp.model.Institution;
 import beggarHelp.model.User;
+import static javax.swing.JOptionPane.showMessageDialog;
 
 public class SignIn extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -41,39 +46,45 @@ public class SignIn extends HttpServlet {
 			logged = check.equals("on") ? true : false;
 		}
 
-		if (user != null && user.equals("institution")) {
+		try {
+				if (user != null && user.equals("institution")) {
+	
+					InstitutionDao inst = new InstitutionDao();
+					List<Institution> list = new ArrayList<Institution>();
+	
+					list.addAll(inst.logar(email, password));
+	
+					HttpSession session = request.getSession();
+					session.setAttribute("user", list.get(0));
+	
+					if (logged == true)
+						session.setAttribute("typeUser", "institution.jsp");
+	
+					if (list.size() == 1)
+						response.sendRedirect("institution.jsp");
+				} 
+				else if (user != null && user.equals("donor")) {
+	
+					DonorDao donor = new DonorDao();
+					List<Donor> list = new ArrayList<Donor>();
+	
+					list.addAll(donor.logar(email, password));
+	
+					HttpSession session = request.getSession();
+					session.setAttribute("user", list.get(0));
+	
+					if (logged == true)
+						session.setAttribute("typeUser", "donor.jsp");
+	
+					if (list.size() == 1)
+						response.sendRedirect("donor.jsp");
+				}
 
-			InstitutionDao inst = new InstitutionDao();
-			List<Institution> list = new ArrayList<Institution>();
-
-			list.addAll(inst.logar(email, password));
-
-			HttpSession session = request.getSession();
-			session.setAttribute("user", list.get(0));
-			
-			if (logged == true)
-				session.setAttribute("typeUser", "institution.jsp");
-
-			if (list.size() == 1)
-				response.sendRedirect("institution.jsp");
-		} 
-		else if (user != null && user.equals("donor")) {
-
-			DonorDao donor = new DonorDao();
-			List<Donor> list = new ArrayList<Donor>();
-
-			list.addAll(donor.logar(email, password));
-
-			HttpSession session = request.getSession();
-			session.setAttribute("user", list.get(0));
-			
-			
-			if (logged == true)
-				session.setAttribute("typeUser", "donor.jsp");
-
-			if (list.size() == 1)
-				response.sendRedirect("donor.jsp");
-		}
+			} 
+		    catch (Exception e) {
+	    	    Alert.alertSimple("Ocorreu um erro ao logar! Confira suas credenciais, tente novamente.");
+		        response.sendRedirect("index.jsp");
+			}
 
 	}
 
@@ -81,7 +92,5 @@ public class SignIn extends HttpServlet {
 			throws ServletException, IOException {
 
 	}
-	
-		
 
 }

@@ -15,7 +15,7 @@
 </script>
 </head>
 
-<body>
+<body onload="loadUfs()">
 	<div class="container-sign-up">
 		<div class="form-cad">
 			<h1>Cadastre-se</h1>
@@ -33,7 +33,7 @@
                 </label>
 				<div class="group-input">
 					<input type="text" placeholder="Nome" name="name" autocomplete="off"> 
-					<input type="tel" placeholder="Telefone" name="phone">
+					<input type="tel" placeholder="Telefone" name="phone" onchange="maskPhone(this.value)">
 				</div>
 
                 

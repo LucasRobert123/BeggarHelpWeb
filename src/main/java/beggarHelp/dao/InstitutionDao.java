@@ -68,4 +68,13 @@ private EntityManager em;
 		
 		return q.getResultList();
 	}
+	
+	public List<Institution> filterInstitution(String uf, String city) {
+
+		Query q = em.createQuery("SELECT i FROM Institution i WHERE i.uf = :uf AND i.city = :city");
+		q.setParameter("uf", uf);
+		q.setParameter("city", city);
+
+		return q.getResultList();
+	}
 }

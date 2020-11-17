@@ -8,8 +8,9 @@ function setDisplayNone() {
 }
 
 async function showModal(id, servelet) {
+     console.log({id, servelet})
 	const { name, email, phone, street, number, neighborhood } = await getData(id, servelet);
-
+   
 	const address = street + ", " + number + ", " + neighborhood;
 
 	document.querySelector(".modal-overlay").style.display = "flex"
@@ -21,7 +22,7 @@ async function showModal(id, servelet) {
 }
 
 async function getData(id, servelet) {
-	return fetch(`http://localhost:8081/BeggarHelpWeb/${servelet}?id=${id}&delete=false`)
+	return fetch(`http://localhost:8081/BeggarHelpWeb/${servelet}?id=${id}&details=true`)
 		.then(response => {
 			return response.json()
 
@@ -73,6 +74,125 @@ function clearSelect(){
 	  select.options[i] = null;
 	}
 }
+
+function filterInstitutions(){
+   
+   let uf = document.getElementById("ufs").value;
+   let city = document.getElementById("cities").value;
+  
+   fetch(`http://localhost:8081/BeggarHelpWeb/donor?uf=${uf}&city=${city}`)
+   .then(response =>{
+      return response.json()
+   })
+   .then(response =>{
+      let institution = response;
+      setCard(institution);
+   })
+}
+
+function setCard(cards) {
+    document.querySelector("#list-institutions").innerHTML = "";
+	cards.map(card => {
+		document.querySelector("#list-institutions").innerHTML +=
+			`
+			<form action="donor?id=${card.id}" method="post">
+		        <div class="card-user">
+					<header>
+						<div class="avatar">
+							<img src=http://localhost:8081/BeggarHelpWeb/images/${card.profilePicture} alt="profile">
+							<p>${card.name}</p>
+						</div>
+						<div class="icon-plus">
+							<img src="./assets/plus.svg" alt="plus" onclick="showModal(${card.id}, 'donor')">
+						</div>
+					</header>
+					<div class="content">
+						<p>${card.description}</p>
+					</div>
+					<div class="btn">
+						<button type="submit">Quero doar</button>
+					</div>
+		
+				</div>
+		</form>
+     `
+
+	})
+
+
+}
+
+function deleteDonor(id, userId){
+  
+   fetch(`http://localhost:8081/BeggarHelpWeb/institution?id=${id.toString()}&delete=true&idInst=${userId.toString()}`)
+	.then(response => {
+		return response.json()
+
+	})
+	.then(response => {
+	    console.log(response)
+	    document.getElementById("list-donors").innerHTML = "";
+		if(response.length > 0){
+		  setCardsDonor(response, userId)
+		}
+		
+	})
+}
+
+function setCardsDonor(cards, userId) {
+   
+	cards.map(card => {
+		document.querySelector("#list-donors").innerHTML +=
+			`
+			<div class="card-user">
+				<header>
+					<div class="avatar">
+						<img
+							src="http://localhost:8081/BeggarHelpWeb/images/${card.profilePicture}"
+							alt="profile">
+						<p>${card.name}</p>
+					</div>
+					<div class="icon-plus">
+						<button onclick="deleteDonor(${card.id},${userId})" 
+						>
+						   <img src="./assets/delete.svg" alt="delete">
+						</button> 
+						<img src="./assets/plus.svg" alt="plus" onclick="showModal(${card.id}, 'institution')">
+					</div>
+				</header>
+				<div class="content">
+					<img src="./assets/location.svg" alt="">
+					<p>${card.street},
+						${card.number},
+						${card.neighborhood}</p>
+				</div>
+				<div class="btn-whatsapp">
+					<button>
+						<img src="./assets/whatsapp.svg" alt="whatsapp"> 
+						<a href="https://wa.me/55${card.phone}" target="_blank">Entrar em contato</a>
+					</button>
+				</div>
+
+			</div>
+     `
+
+	})
+
+
+}
+
+function loadList(id){
+    fetch(`http://localhost:8081/BeggarHelpWeb/institution?id=${id}&listDonors=true`)
+	.then(response => {
+		return response.json()
+
+	})
+	.then(response => {
+		setCardsDonor(response, id)
+	})
+}
+
+
 
 
 

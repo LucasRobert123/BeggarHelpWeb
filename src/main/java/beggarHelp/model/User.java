@@ -1,6 +1,10 @@
 package beggarHelp.model;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.ElementCollection;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,13 +18,17 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	int id;
-	String profilePicture,name, phone, email,password, neighborhood, street, number,city,uf, status;
+	String profilePicture,name, phone, email,password, neighborhood, street, number,city,uf;
 	
-	public User() {}
+
+	
+	public User() {
+		
+	}
 	
 	
     public User(String profilePicture, String name, String phone, String email, String password,
-			String neighborhood, String street, String number, String city, String uf, String status) {
+			String neighborhood, String street, String number, String city, String uf) {
 		super();
 		this.profilePicture = profilePicture;
 		this.name = name;
@@ -32,7 +40,6 @@ public class User {
 		this.number = number;
 		this.city = city;
 		this.uf = uf;
-		this.status = status;
 	}
 
 
@@ -131,14 +138,5 @@ public class User {
 				+ number + ", city=" + city + ", \nuf=" + uf + "]";
 	}
 	
-	
-	public String getStatus() {
-		return status;
-	}
-
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
 	
 }

@@ -1,3 +1,4 @@
+<%@page import="com.google.gson.Gson"%>
 <%@page import="beggarHelp.model.Donor"%>
 <%@page import="beggarHelp.dao.InstitutionDao"%>
 <%@page import="beggarHelp.model.Institution"%>
@@ -14,22 +15,27 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="css/donor.css">
 <title>Dashboard</title>
-</head>
-<script src="./scripts/load.js">
-  
-</script>
-<body>
-	<%
-	 String profile="";
+
+<%
+	String profile="";
+    Donor user;
+    String json = "";
     try{
     
-		Donor user = (Donor) session.getAttribute("user");
+	    user = (Donor) session.getAttribute("user");
 	    profile = user.getProfilePicture();
+	    json = new Gson().toJson(user.getListIdsInstitutionsPendente());
     }
     catch(Exception e){
     	response.sendRedirect("index.jsp");
     }
-	%>
+%>
+</head>
+<script src="./scripts/load.js">
+  
+</script>
+<body onload="loadUfs(<%=json%>)">
+	
 	<div class="container-dashboard-doador">
 		<header>
 			<h1>Estas são as instituições que você pode ajudar</h1>
@@ -57,7 +63,7 @@
 					<option value="" hidden selected>Cidade</option>
 				</select>
 
-				<button class="search" onclick="filterInstitutions">
+				<button class="search" onclick="filterInstitutions()">
 					<img src="./assets/search.svg" alt="">
 				</button>
 			</div>

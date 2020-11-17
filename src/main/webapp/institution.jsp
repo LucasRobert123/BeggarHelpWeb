@@ -14,28 +14,25 @@
 <link rel="stylesheet" href="css/institution.css">
 <title>Dashboard</title>
 
-<script type="text/javascript">
-function load(){
-	<%
-	    List<Donor> donors = new ArrayList<Donor>();
+<%
 		String profile = "";
 		Institution user = new Institution();
 		try {
 			user = (Institution) session.getAttribute("user");
+	
+			if(user != null)
+		       session.setAttribute("backupUser", user);
+			
+	        profile = user.getProfilePicture();
 		
-			profile = user.getProfilePicture();
-		
-			donors.addAll(user.getDoadores());
 		
 		} catch (Exception e) {
-			response.sendRedirect("index.jsp");
+			  response.sendRedirect("index.jsp");
 		}
 	%>
-}
-</script>
 </head>
 
-<body>
+<body onload="loadList(<%=user.getId()%>)">
     
 	<div class="container-dashboard-institution">
 		<header id="header">
@@ -53,43 +50,8 @@ function load(){
 				</div>
 			</div>
 		</header>
-		<main>
-			<%
-				for (Donor d : donors) {
-			%>
-			<div class="card-user">
-				<header>
-					<div class="avatar">
-						<img
-							src="http://localhost:8081/BeggarHelpWeb/images/<%=d.getProfilePicture()%>"
-							alt="profile">
-						<p><%=d.getName()%></p>
-					</div>
-					<div class="icon-plus">
-						<a
-							href="institution?id=<%=d.getId()%>&delete=true&idInst=<%=user.getId()%>">
-							<img src="./assets/delete.svg" alt="delete">
-						</a> <img src="./assets/plus.svg" alt="plus"
-							onclick="showModal(<%=d.getId()%>, 'institution')">
-					</div>
-				</header>
-				<div class="content">
-					<img src="./assets/location.svg" alt="">
-					<p><%=d.getStreet()%>,
-						<%=d.getNumber()%>,
-						<%=d.getNeighborhood()%></p>
-				</div>
-				<div class="btn-whatsapp">
-					<button>
-						<img src="./assets/whatsapp.svg" alt="whatsapp"> <a href="">Entrar
-							em contato</a>
-					</button>
-				</div>
-
-			</div>
-			<%
-				}
-			%>
+		<main id="list-donors">
+			<%--List Donors --%>
 		</main>
 
 		<div class="modal-overlay">

@@ -8,6 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 
@@ -26,31 +27,63 @@ public class Inst extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		int id = Integer.parseInt(request.getParameter("id"));
-		String delete = request.getParameter("delete");
-		
-		if(delete.equals("true")) {
-			
-			int idInst = Integer.parseInt(request.getParameter("idInst"));
-			
-			InstitutionDao iDao = new InstitutionDao();
-			Institution inst = iDao.get(idInst);
-			
-			inst.getDoadores().remove(id -1);
+			int id = Integer.parseInt(request.getParameter("id"));
+			String delete = request.getParameter("delete");
+			String details = request.getParameter("details");
+            String json = "";
+			if (delete != null && delete.equals("true")) {
+
+				try {
+					int idInst = Integer.parseInt(request.getParameter("idInst"));
 					
-			iDao.update(inst);
+					//Excluindo da list de pendente
+					DonorDao dDao  = new DonorDao();
+					Donor donor = dDao.get(id);
+					
+					donor.getListIdsInstitutionsPendente().remove(new Integer(idInst));
+					
+					dDao.update(donor);
+					
+					//Excluindo doador
+					InstitutionDao iDao = new InstitutionDao();
+					Institution inst = iDao.get(idInst);
+
+					if(inst.getDoadores().size() == 1)
+						inst.getDoadores().remove(0);
+					else {
+					  inst.getDoadores().remove(id - 1);
+					}
+					iDao.update(inst);
+					
+					List<Donor> list = new ArrayList<Donor>();
+					list.addAll(inst.getDoadores());
+					
+					json = new Gson().toJson(list);
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+				}
+				
+				
+            } else if (details != null && details.equals("true")) {
+            	
+            	// Mandar dados para mostrar no modal detalhes do doador
+				Donor donor = getDonor(id);
+				json = new Gson().toJson(donor);
+			}
+            else if(request.getParameter("listDonors").equals("true")) {
+            	InstitutionDao iDao = new InstitutionDao();
+            	List<Donor> list = new ArrayList<Donor>();
+            	
+            	list.addAll(iDao.get(id).getDoadores());
+            	
+            	json = new Gson().toJson(list);
+            }
 			
-			response.sendRedirect("institution.jsp");
-		}
-		else {
-			Donor donor = getDonor(id);
-			String json = new Gson().toJson(donor);
-	
+			
 			response.setContentType("application/json");
 			response.setCharacterEncoding("UTF-8");
 			response.getWriter().write(json);
-		}
-
+		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -59,11 +92,12 @@ public class Inst extends HttpServlet {
 	}
 
 	private static Donor getDonor(int id) {
-		
+
 		DonorDao dDao = new DonorDao();
-		
+
 		Donor donor = dDao.get(id);
-		
+
+		System.out.println(donor);
 		return donor;
 	}
 }

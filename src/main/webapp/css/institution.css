@@ -136,8 +136,10 @@
     transition: all 200ms linear;
 }
 
-.container-dashboard-institution  main .card-user .icon-plus a{
-	text-decoration:none;
+.container-dashboard-institution  main .card-user .icon-plus button{
+	background-color:var(--white);
+	outline:none;
+	border:0
 }
 
 .container-dashboard-institution  main .card-user .icon-plus img:hover{

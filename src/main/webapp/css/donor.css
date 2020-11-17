@@ -218,6 +218,7 @@
     border-radius: 7px;
     cursor: pointer;
     transition: all 200ms linear;
+    outline:none
 }
 
 .container-dashboard-doador  main .card-user .btn button:hover{

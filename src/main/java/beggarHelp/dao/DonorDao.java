@@ -81,5 +81,7 @@ public class DonorDao implements Dao<Donor> {
 		System.out.println(q.getResultList());
 		return q.getResultList();
 	}
+	
+	
 
 }
