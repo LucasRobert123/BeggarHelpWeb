@@ -83,6 +83,18 @@
 				</div>
 			</div>
 		</div>
+		
+		
+		<div class="modal-overlay" id="visible">
+		    <div class="modal-alert">
+		        <p>Tem certeza que deseja excluir esse doador?<p>
+		        
+		        <div class="options">
+		            <button id="not" type="button">NÃO</button>
+		            <button id="yes" type="button">SIM</button>
+		        </div>
+		    </div>
+		</div>
 
 	</div>
 </body>

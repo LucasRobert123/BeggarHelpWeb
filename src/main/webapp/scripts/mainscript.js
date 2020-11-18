@@ -122,9 +122,11 @@ function setCard(cards) {
 
 }
 
-function deleteDonor(id, userId){
+
+
+async function deleteDonor(id, userId){
   
-   fetch(`http://localhost:8081/BeggarHelpWeb/institution?id=${id.toString()}&delete=true&idInst=${userId.toString()}`)
+   await fetch(`http://localhost:8081/BeggarHelpWeb/institution?id=${id.toString()}&delete=true&idInst=${userId.toString()}`)
 	.then(response => {
 		return response.json()
 
@@ -137,6 +139,19 @@ function deleteDonor(id, userId){
 		}
 		
 	})
+}
+
+function showModalConfirmDelete(cardId,userId){
+    document.querySelector("#visible").style.display = "flex";
+    
+   document.getElementById("not").addEventListener("click", function() {
+       document.querySelector("#visible").style.display = "none";
+   });
+   
+   document.getElementById("yes").addEventListener("click", async function() {
+       await deleteDonor(cardId,userId);
+       document.querySelector("#visible").style.display = "none";
+   });
 }
 
 function setCardsDonor(cards, userId) {
@@ -153,7 +168,7 @@ function setCardsDonor(cards, userId) {
 						<p>${card.name}</p>
 					</div>
 					<div class="icon-plus">
-						<button onclick="deleteDonor(${card.id},${userId})" 
+						<button onclick="showModalConfirmDelete(${card.id},${userId})" 
 						>
 						   <img src="./assets/delete.svg" alt="delete">
 						</button> 
