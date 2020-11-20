@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 
+import javax.persistence.Query;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
@@ -48,23 +49,29 @@ public class SignUp extends HttpServlet {
 			
 			String user = request.getParameter("user");
 		
+			Boolean save = false;
 		
 			if (user != null && user.equals("institution")) {
 				
-		       saveInstitution(request, fileName);
+	            save = saveInstitution(request, fileName);
 		       
 			}
 			else if (user != null && user.equals("donor")) { 
 				
-				saveDonor(request, fileName);
+				save = saveDonor(request, fileName);
 				
+			}
+			
+			if(save)
+			   response.sendRedirect("sucess_sign_up.jsp");
+			else {
+				response.sendRedirect("sign_up.jsp");
 			}
 		}
 		catch(Exception e) {
 			System.out.println(e.getMessage());
 			Alert.alertSimple("Ocorreu um erro! Tente novamente mais tarde");
 		}
-		response.sendRedirect("sucess_sign_up.jsp");
 	}
 	
 	private static void setDataNotEspecific(HttpServletRequest request, User obj) {
@@ -79,30 +86,55 @@ public class SignUp extends HttpServlet {
 		obj.setUf(request.getParameter("uf"));
 	}
 	
-	private static void saveInstitution(HttpServletRequest request, String fileName) {
-		Institution inst = new Institution();
-
-		setDataNotEspecific(request, inst);
+	private static Boolean saveInstitution(HttpServletRequest request, String fileName) {
 		
-		inst.setCnpj(request.getParameter("cnpj"));
-		inst.setDescription(request.getParameter("description"));
-		inst.setProfilePicture(fileName);
-	    
+		Institution inst = new Institution();
 		InstitutionDao instDao = new InstitutionDao();
-		instDao.save(inst);
+		
+		String email = request.getParameter("email");
+		String cnpj = request.getParameter("cnpj");
+		
+		if(instDao.checkIfThereIsAUserWithThatEmail(email, cnpj)) {
+			setDataNotEspecific(request, inst);
+			
+			inst.setCnpj(request.getParameter("cnpj"));
+			inst.setDescription(request.getParameter("description"));
+			inst.setProfilePicture(fileName);
+		   
+			instDao.save(inst);
+			
+			return true;
+		}
+		else {
+			Alert.alertSimple("Instituição ja existente!");
+            return false;
+		}
 	}
 	
-	private static void saveDonor(HttpServletRequest request, String fileName) {
-		Donor donor = new Donor();
-
-		setDataNotEspecific(request, donor);
+	private static Boolean saveDonor(HttpServletRequest request, String fileName) {
 		
-		donor.setCpf(request.getParameter("cpf"));
-		donor.setProfilePicture(fileName);
-        
 		DonorDao donorDao = new DonorDao();
-		donorDao.save(donor);
+		
+		String email = request.getParameter("email");
+		String cpf = request.getParameter("cpf");
+		
+		if(donorDao.checkIfThereIsAUserWithThatEmail(email,cpf)) {
+			Donor donor = new Donor();
+	
+			setDataNotEspecific(request, donor);
+			
+			donor.setCpf(request.getParameter("cpf"));
+			donor.setProfilePicture(fileName);
+	        
+			donorDao.save(donor);
+			return true;
+		}
+		else {
+			Alert.alertSimple("Doador ja existente!");
+            return false;
+		}
 	}
+	
 
 	private static String saveImageUpload(HttpServletRequest request) {
 		String str = "C:\\Users\\Lucas\\Documents\\Faculdade\\6_periodo\\Linguagem_e_Tecnicas_de_Programacao\\Projetos\\BeggarHelpWeb\\src\\main\\webapp\\images";

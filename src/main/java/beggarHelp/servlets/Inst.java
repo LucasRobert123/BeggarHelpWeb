@@ -37,28 +37,19 @@ public class Inst extends HttpServlet {
 					int idInst = Integer.parseInt(request.getParameter("idInst"));
 					
 					//Excluindo da list de pendente
-					DonorDao dDao  = new DonorDao();
-					Donor donor = dDao.get(id);
+					   
+					 removeListPendentes(id, idInst);
 					
-					donor.getListIdsInstitutionsPendente().remove(new Integer(idInst));
+					//Excluindo doador da lista de doadores da instituição
 					
-					dDao.update(donor);
+					Institution inst = deleteDonorFromListInstitution(id, idInst);
 					
-					//Excluindo doador
-					InstitutionDao iDao = new InstitutionDao();
-					Institution inst = iDao.get(idInst);
-
-					if(inst.getDoadores().size() == 1)
-						inst.getDoadores().remove(0);
-					else {
-					  inst.getDoadores().remove(id - 1);
-					}
-					iDao.update(inst);
-					
+					//retornando list depois de excluir
 					List<Donor> list = new ArrayList<Donor>();
 					list.addAll(inst.getDoadores());
 					
 					json = new Gson().toJson(list);
+					
 				} catch (Exception e) {
 					System.out.println(e.getMessage());
 				}
@@ -71,6 +62,8 @@ public class Inst extends HttpServlet {
 				json = new Gson().toJson(donor);
 			}
             else if(request.getParameter("listDonors").equals("true")) {
+            	
+            	// retornando lista de doadores insteressados em doar em determinada instituição
             	InstitutionDao iDao = new InstitutionDao();
             	List<Donor> list = new ArrayList<Donor>();
             	
@@ -99,5 +92,28 @@ public class Inst extends HttpServlet {
 
 		System.out.println(donor);
 		return donor;
+	}
+	
+	private static void removeListPendentes(int id, int idInst) {
+		DonorDao dDao  = new DonorDao();
+		Donor donor = dDao.get(id);
+		
+		donor.getListIdsInstitutionsPendente().remove(new Integer(idInst));
+		
+		dDao.update(donor);
+	}
+	
+	private static Institution deleteDonorFromListInstitution(int id, int idInst) {
+		InstitutionDao iDao = new InstitutionDao();
+		Institution inst = iDao.get(idInst);
+
+		if(inst.getDoadores().size() == 1)
+			inst.getDoadores().remove(0);
+		else {
+		  inst.getDoadores().remove(id - 1);
+		}
+		iDao.update(inst);
+		
+		return inst;
 	}
 }

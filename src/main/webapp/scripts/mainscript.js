@@ -8,7 +8,6 @@ function setDisplayNone() {
 }
 
 async function showModal(id, servelet) {
-     console.log({id, servelet})
 	const { name, email, phone, street, number, neighborhood } = await getData(id, servelet);
    
 	const address = street + ", " + number + ", " + neighborhood;
@@ -103,7 +102,7 @@ function setCard(cards) {
 							<p>${card.name}</p>
 						</div>
 						<div class="icon-plus">
-							<img src="./assets/plus.svg" alt="plus" onclick="showModal(${card.id}, 'donor')">
+							<img src="./assets/plus.svg" alt="plus" onclick=showModal(${card.id}, 'donor')>
 						</div>
 					</header>
 					<div class="content">

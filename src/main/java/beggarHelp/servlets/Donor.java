@@ -33,6 +33,8 @@ public class Donor extends HttpServlet {
     		 && !request.getParameter("uf").isEmpty() && !request.getParameter("uf").isEmpty()
         ) {
     	  
+    	  //filtrando instituições por uf e city
+    	  
     	 List<Institution> donors = new ArrayList<Institution>();
     	 InstitutionDao dDao = new InstitutionDao();
     	 
@@ -44,7 +46,8 @@ public class Donor extends HttpServlet {
       }
       else if(list != null && list.equals("true") && request.getParameter("details") != "true") {
     	  List<Institution> listInst = new ArrayList<Institution>();
-    	    
+    	  
+    	  // retornando todas as instituições
 		  InstitutionDao iDao = new InstitutionDao();
 	      listInst.addAll(iDao.getAll());
 	      
@@ -52,6 +55,7 @@ public class Donor extends HttpServlet {
       }
 	  else if(request.getParameter("details").equals("true")){
 	
+		// retornando dados de uma instituição  
 		int id = Integer.parseInt(request.getParameter("id"));
 
 		Institution inst = getInstitution(id);
@@ -69,23 +73,24 @@ public class Donor extends HttpServlet {
 			throws ServletException, IOException {
 		
 		try {
-		int idInstitution = Integer.parseInt(request.getParameter("id"));
-
-		HttpSession session = request.getSession();
-		beggarHelp.model.Donor user = (beggarHelp.model.Donor) session.getAttribute("user");
-
-		InstitutionDao iDao = new InstitutionDao();
-		Institution i = iDao.get(idInstitution);
-		
-		user.setListIdsInstitutionsPendente(idInstitution);
-		DonorDao dDao = new DonorDao();
-		
-		dDao.update(user);
-		
-		i.setDoador(user);
-		iDao.update(i);
-
-		response.sendRedirect("donor.jsp");
+			// adicionando na lista as instituições que o doador quer doar
+			int idInstitution = Integer.parseInt(request.getParameter("id"));
+	
+			HttpSession session = request.getSession();
+			beggarHelp.model.Donor user = (beggarHelp.model.Donor) session.getAttribute("user");
+	
+			InstitutionDao iDao = new InstitutionDao();
+			Institution i = iDao.get(idInstitution);
+			
+			user.setListIdsInstitutionsPendente(idInstitution);
+			DonorDao dDao = new DonorDao();
+			
+			dDao.update(user);
+			
+			i.setDoador(user);
+			iDao.update(i);
+	
+			response.sendRedirect("donor.jsp");
 		}
 		catch(Exception e) {
 			System.out.println(e.getMessage());

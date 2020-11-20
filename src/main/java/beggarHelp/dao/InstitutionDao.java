@@ -77,4 +77,12 @@ private EntityManager em;
 
 		return q.getResultList();
 	}
+	
+	public Boolean checkIfThereIsAUserWithThatEmail(String email, String cnpj) {
+    	Query q = em.createQuery("SELECT i FROM Institution i WHERE i.email = :email OR i.cnpj = :cnpj");
+		q.setParameter("email", email);
+		q.setParameter("cnpj", cnpj);
+		
+		return q.getResultList().isEmpty();
+	}
 }

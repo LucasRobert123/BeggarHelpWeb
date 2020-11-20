@@ -23,7 +23,7 @@ function setSelect(ufs) {
 }
 
 
-function setList(listStatus) {
+async function setList(listStatus) {
 
 	fetch(`http://localhost:8081/BeggarHelpWeb/donor?list=true`)
 		.then(response => {
@@ -37,7 +37,6 @@ function setList(listStatus) {
 
 
 function setCards(cards, listStatus) {
-   
 	cards.map(card => {
 	    if(!listStatus.includes(card.id)){
 			document.querySelector("#list-institutions").innerHTML +=
@@ -50,7 +49,7 @@ function setCards(cards, listStatus) {
 								<p>${card.name}</p>
 							</div>
 							<div class="icon-plus" disabled>
-								<img src="./assets/plus.svg" alt="plus" onclick="showModal(card.id, 'donor')">
+								<img src="./assets/plus.svg" alt="plus" onclick="showModal(${card.id}, 'donor')">
 							</div>
 						</header>
 						<div class="content">

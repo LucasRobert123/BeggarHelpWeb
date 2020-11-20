@@ -10,6 +10,7 @@ import javax.persistence.Query;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 
+import beggarHelp.model.Alert;
 import beggarHelp.model.Donor;
 import beggarHelp.model.Institution;
 
@@ -46,19 +47,7 @@ public class DonorDao implements Dao<Donor> {
 		executeInsideTransaction(em -> em.remove(instance));
 	}
 	
-	
-	public void deleteAux(Donor instance){
-       
-		InstitutionDao iDao = new InstitutionDao();
-		Institution inst = iDao.get(1);
 		
-        em.getTransaction().begin();
-        inst.getDoadores().remove(instance);
-        em.remove(inst);
-        em.getTransaction().commit();
-	}
-
-	
 	private void executeInsideTransaction(Consumer<EntityManager> action) {
 		EntityTransaction tx = em.getTransaction();
 
@@ -78,10 +67,16 @@ public class DonorDao implements Dao<Donor> {
 		q.setParameter("email", email);
 		q.setParameter("password", password);
 
-		System.out.println(q.getResultList());
 		return q.getResultList();
 	}
 	
-	
+    public Boolean checkIfThereIsAUserWithThatEmail(String email, String cpf) {
+    	Query q = em.createQuery("SELECT d FROM Donor d WHERE d.email = :email OR d.cpf = :cpf");
+		q.setParameter("email", email);
+		q.setParameter("cpf", cpf);
+		
+		return q.getResultList().isEmpty();
+	}
+
 
 }

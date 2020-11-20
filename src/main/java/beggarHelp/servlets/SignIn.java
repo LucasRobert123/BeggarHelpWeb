@@ -41,6 +41,7 @@ public class SignIn extends HttpServlet {
 		String check = "";
 		Boolean logged = false;
 
+		// verificando se o usuário marcou o checkbox Lembrar-me
 		if (request.getParameter("check") != null) {
 			check = request.getParameter("check");
 			logged = check.equals("on") ? true : false;
@@ -49,41 +50,21 @@ public class SignIn extends HttpServlet {
 		try {
 				if (user != null && user.equals("institution")) {
 	
-					InstitutionDao inst = new InstitutionDao();
-					List<Institution> list = new ArrayList<Institution>();
-	
-					list.addAll(inst.logar(email, password));
-	
-					HttpSession session = request.getSession();
-					session.setAttribute("user", list.get(0));
-	
-					if (logged == true)
-						session.setAttribute("typeUser", "institution.jsp");
-	
-					if (list.size() == 1)
-						response.sendRedirect("institution.jsp");
+					// fazendo login de Institution
+					
+					loginInstitution(request, response, email, password, logged);
+					
 				} 
 				else if (user != null && user.equals("donor")) {
-	
-					DonorDao donor = new DonorDao();
-					List<Donor> list = new ArrayList<Donor>();
-	
-					list.addAll(donor.logar(email, password));
-	
-					HttpSession session = request.getSession();
-					session.setAttribute("user", list.get(0));
-	
-					if (logged == true)
-						session.setAttribute("typeUser", "donor.jsp");
-	
-					if (list.size() == 1)
-						response.sendRedirect("donor.jsp");
+	                
+					// fazendo login de doador
+					loginDoador(request, response, email, password, logged);
+		           			
 				}
-
-			} 
+				 response.sendRedirect("index.jsp");
+            } 
 		    catch (Exception e) {
 	    	    Alert.alertSimple("Ocorreu um erro ao logar! Confira suas credenciais, tente novamente.");
-		        response.sendRedirect("index.jsp");
 			}
 
 	}
@@ -92,5 +73,42 @@ public class SignIn extends HttpServlet {
 			throws ServletException, IOException {
 
 	}
+	
+	private static void loginInstitution(HttpServletRequest request, HttpServletResponse response ,String email, String password, Boolean logged) throws IOException {
+		
+		InstitutionDao inst = new InstitutionDao();
+		List<Institution> list = new ArrayList<Institution>();
+
+		list.addAll(inst.logar(email, password));
+
+		HttpSession session = request.getSession();
+		session.setAttribute("user", list.get(0));
+
+		if (logged == true)
+			session.setAttribute("typeUser", "institution.jsp");
+
+		if (list.size() == 1)
+			response.sendRedirect("institution.jsp");
+			
+	}
+	
+    private static void loginDoador(HttpServletRequest request, HttpServletResponse response ,String email, String password, Boolean logged) throws IOException {
+		
+    	DonorDao donor = new DonorDao();
+		List<Donor> list = new ArrayList<Donor>();
+
+		list.addAll(donor.logar(email, password));
+
+		HttpSession session = request.getSession();
+		session.setAttribute("user", list.get(0));
+
+		if (logged == true)
+			session.setAttribute("typeUser", "donor.jsp");
+
+		if (list.size() == 1)
+			response.sendRedirect("donor.jsp");
+			
+	}
+    
 
 }
