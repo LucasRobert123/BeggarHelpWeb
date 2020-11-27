@@ -17,14 +17,13 @@
 <title>Dashboard</title>
 
 <%
-	String profile="";
-    Donor user;
+	String profile="", email="";
+    Donor user = (Donor) session.getAttribute("user");
     String json = "";
     try{
     
-	    user = (Donor) session.getAttribute("user");
 	    profile = user.getProfilePicture();
-	    json = new Gson().toJson(user.getListIdsInstitutionsPendente());
+	    email = user.getEmail();
     }
     catch(Exception e){
     	response.sendRedirect("index.jsp");
@@ -34,13 +33,13 @@
 <script src="./scripts/load.js">
   
 </script>
-<body onload="loadUfs(<%=json%>)">
+<body onload="loadUfs(<%=user.getId()%>)">
 	
 	<div class="container-dashboard-doador">
 		<header>
 			<h1>Estas são as instituições que você pode ajudar</h1>
 			<div class="user" onmouseover="showListOptions()">
-				<p>usuario.@gmail.com</p>
+				<p><%=email%></p>
 				<img class="profile"
 					src="http://localhost:8081/BeggarHelpWeb/images/<%=profile%>" alt="profile">
 				<div class="list-options" onmouseout="setDisplayNone()">

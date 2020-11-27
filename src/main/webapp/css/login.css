@@ -1,5 +1,14 @@
 @import './global.css';
 
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus,
+select:-webkit-autofill, 
+input:-webkit-autofill:active  {
+	-webkit-text-fill-color: #E5E4DD;
+    -webkit-background-clip: text;
+    -webkit-box-shadow: 0 0 0 40px #FAFAFC inset !important;
+}
 .container-login{
     width: 100vw;
     height: 100vh;

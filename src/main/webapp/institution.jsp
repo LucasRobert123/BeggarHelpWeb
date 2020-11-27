@@ -15,7 +15,7 @@
 <title>Dashboard</title>
 
 <%
-		String profile = "";
+		String profile = "", email="";
 		Institution user = new Institution();
 		try {
 			user = (Institution) session.getAttribute("user");
@@ -24,7 +24,7 @@
 		       session.setAttribute("backupUser", user);
 			
 	        profile = user.getProfilePicture();
-		
+		    email = user.getEmail();
 		
 		} catch (Exception e) {
 			  response.sendRedirect("index.jsp");
@@ -38,7 +38,7 @@
 		<header id="header">
 			<h1>Estes são os interessados em doar a sua instituição</h1>
 			<div class="user" onmouseover="showListOptions()">
-				<p>usuario.@gmail.com</p>
+				<p><%=email%></p>
 				<img class="profile"
 					src="http://localhost:8081/BeggarHelpWeb/images/<%=profile%>"
 					alt="profile">

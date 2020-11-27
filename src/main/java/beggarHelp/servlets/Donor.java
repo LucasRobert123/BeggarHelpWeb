@@ -82,7 +82,7 @@ public class Donor extends HttpServlet {
 			InstitutionDao iDao = new InstitutionDao();
 			Institution i = iDao.get(idInstitution);
 			
-			user.setListIdsInstitutionsPendente(idInstitution);
+			//user.setListIdsInstitutionsPendente(idInstitution);
 			DonorDao dDao = new DonorDao();
 			
 			dDao.update(user);

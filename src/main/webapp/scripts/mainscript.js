@@ -39,7 +39,7 @@ function previewImage(val) {
 	let url = URL.createObjectURL(val[0]);
 	
 	document.querySelector("#text-select").style.display = "none"
-	document.querySelector("#preview").style.objectFit = "cover";
+	document.querySelector("#preview").style.objectFit = "contain";
 	document.querySelector("#preview").style.width = "100%"
 	document.querySelector("#preview").style.height = "100%"
 	document.querySelector("#preview").style.borderRadius = "7px"
@@ -102,7 +102,7 @@ function setCard(cards) {
 							<p>${card.name}</p>
 						</div>
 						<div class="icon-plus">
-							<img src="./assets/plus.svg" alt="plus" onclick=showModal(${card.id}, 'donor')>
+							<img src="./assets/plus.svg" alt="plus" onclick="showModal(${card.id}, 'institution')">
 						</div>
 					</header>
 					<div class="content">
@@ -125,13 +125,12 @@ function setCard(cards) {
 
 async function deleteDonor(id, userId){
   
-   await fetch(`http://localhost:8081/BeggarHelpWeb/institution?id=${id.toString()}&delete=true&idInst=${userId.toString()}`)
+   fetch(`http://localhost:8081/BeggarHelpWeb/institution?id=${id}&delete=true&idInst=${userId}`)
 	.then(response => {
 		return response.json()
 
 	})
 	.then(response => {
-	    console.log(response)
 	    document.getElementById("list-donors").innerHTML = "";
 		if(response.length > 0){
 		  setCardsDonor(response, userId)
@@ -143,15 +142,20 @@ async function deleteDonor(id, userId){
 function showModalConfirmDelete(cardId,userId){
     document.querySelector("#visible").style.display = "flex";
     
-   document.getElementById("not").addEventListener("click", function() {
+    document.getElementById("not").addEventListener("click", function() {
        document.querySelector("#visible").style.display = "none";
-   });
+    });
    
-   document.getElementById("yes").addEventListener("click", async function() {
-       await deleteDonor(cardId,userId);
-       document.querySelector("#visible").style.display = "none";
-   });
+	 document.getElementById("yes").addEventListener("click", async function() {
+	   await deleteDonor(cardId,userId);
+	   document.querySelector("#visible").style.display = "none";
+	});
+	
+	document.getElementById("not").removeEventListener("click", ()=>{});
+	 document.getElementById("yes").removeEventListener("click", ()=>{});
 }
+
+ 
 
 function setCardsDonor(cards, userId) {
    

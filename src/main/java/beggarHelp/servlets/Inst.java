@@ -36,9 +36,6 @@ public class Inst extends HttpServlet {
 				try {
 					int idInst = Integer.parseInt(request.getParameter("idInst"));
 					
-					//Excluindo da list de pendente
-					   
-					 removeListPendentes(id, idInst);
 					
 					//Excluindo doador da lista de doadores da instituição
 					
@@ -94,14 +91,7 @@ public class Inst extends HttpServlet {
 		return donor;
 	}
 	
-	private static void removeListPendentes(int id, int idInst) {
-		DonorDao dDao  = new DonorDao();
-		Donor donor = dDao.get(id);
-		
-		donor.getListIdsInstitutionsPendente().remove(new Integer(idInst));
-		
-		dDao.update(donor);
-	}
+	
 	
 	private static Institution deleteDonorFromListInstitution(int id, int idInst) {
 		InstitutionDao iDao = new InstitutionDao();

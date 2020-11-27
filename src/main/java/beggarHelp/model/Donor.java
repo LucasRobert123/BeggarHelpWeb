@@ -13,11 +13,11 @@ import javax.persistence.OneToOne;
 public class Donor extends User {
 	String cpf;
 	
-	@ElementCollection
-	List<Integer> listIdsInstitutionsPendente;
+	//@ElementCollection
+	//List<Integer> listIdsInstitutionsPendente;
 	
 	public Donor() {
-		listIdsInstitutionsPendente = new ArrayList<Integer>();
+		//listIdsInstitutionsPendente = new ArrayList<Integer>();
 	}
 
 	public Donor(String profilePicture, String name, String phone, String email, String password,
@@ -36,13 +36,13 @@ public class Donor extends User {
 	
 	
 
-	public List<Integer> getListIdsInstitutionsPendente() {
+	/*public List<Integer> getListIdsInstitutionsPendente() {
 		return listIdsInstitutionsPendente;
 	}
 
 	public void setListIdsInstitutionsPendente(Integer statusId) {
 		this.listIdsInstitutionsPendente.add(statusId);
-	}
+	}*/
 
 	@Override
 	public String toString() {

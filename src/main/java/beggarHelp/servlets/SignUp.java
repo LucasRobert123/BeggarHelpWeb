@@ -42,7 +42,7 @@ public class SignUp extends HttpServlet {
 			throws ServletException, IOException {
 
 		try {
-			String path = request.getSession().getServletContext().getRealPath("/");
+			//String path = request.getSession().getServletContext().getRealPath("/");
 			
 			
 			String fileName = saveImageUpload(request);
@@ -62,6 +62,7 @@ public class SignUp extends HttpServlet {
 				
 			}
 			
+			
 			if(save)
 			   response.sendRedirect("sucess_sign_up.jsp");
 			else {
@@ -69,7 +70,6 @@ public class SignUp extends HttpServlet {
 			}
 		}
 		catch(Exception e) {
-			System.out.println(e.getMessage());
 			Alert.alertSimple("Ocorreu um erro! Tente novamente mais tarde");
 		}
 	}

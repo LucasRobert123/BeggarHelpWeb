@@ -20,10 +20,16 @@ body{
     background-color: #E5E4DD
 }
 
-body, input , textarea, h1,h2,h3, select{
+body, textarea, h1,h2,h3, select{
     font: 600 18px Poppins, sans-serif;
+}
+
+input{
+	font: 500 18px Poppins, sans-serif;
 }
 
 button{
     font: 600 18px Raleway, sans-serif;
 }
+
+

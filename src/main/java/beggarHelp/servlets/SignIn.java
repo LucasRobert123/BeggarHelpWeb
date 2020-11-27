@@ -61,10 +61,10 @@ public class SignIn extends HttpServlet {
 					loginDoador(request, response, email, password, logged);
 		           			
 				}
-				 response.sendRedirect("index.jsp");
             } 
 		    catch (Exception e) {
 	    	    Alert.alertSimple("Ocorreu um erro ao logar! Confira suas credenciais, tente novamente.");
+	    	    response.sendRedirect("index.jsp");
 			}
 
 	}
@@ -94,6 +94,7 @@ public class SignIn extends HttpServlet {
 	
     private static void loginDoador(HttpServletRequest request, HttpServletResponse response ,String email, String password, Boolean logged) throws IOException {
 		
+    	
     	DonorDao donor = new DonorDao();
 		List<Donor> list = new ArrayList<Donor>();
 

@@ -1,5 +1,5 @@
 
-function loadUfs(listStatus) {
+async function loadUfs(id) {
    
 	fetch("https://servicodados.ibge.gov.br/api/v1/localidades/estados")
 		.then(response => {
@@ -8,7 +8,7 @@ function loadUfs(listStatus) {
 		.then(response => {
 			let ufs = response.map(uf => uf.sigla)
 			setSelect(ufs.sort());
-			setList(listStatus)
+			setList(id)
 		})
 }
 
@@ -23,22 +23,26 @@ function setSelect(ufs) {
 }
 
 
-async function setList(listStatus) {
+async function setList(id) {
 
 	fetch(`http://localhost:8081/BeggarHelpWeb/donor?list=true`)
 		.then(response => {
 			return response.json()
 		})
 		.then(response => {
-		   setCards(response, listStatus)
+		   console.log(response)
+		   setCards(response,id)
 		})
 
 }
 
 
-function setCards(cards, listStatus) {
+function setCards(cards, id) {
 	cards.map(card => {
-	    if(!listStatus.includes(card.id)){
+	    let doadores = card.doadores.map(r => r.id);
+	    
+	    console.log(doadores)
+	    if(!doadores.includes(id)){
 			document.querySelector("#list-institutions").innerHTML +=
 				`
 				<form action="donor?id=${card.id}" method="post">
@@ -69,6 +73,7 @@ function setCards(cards, listStatus) {
 
 
 function setSelectCidades(uf){
+   console.log(uf)
    clearSelect()
    fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${uf}/municipios`)
 		.then(response => {

@@ -19,7 +19,7 @@
 	<div class="container-sign-up">
 		<div class="form-cad">
 			<h1>Cadastre-se</h1>
-			<form action="signup" method="post" enctype="multipart/form-data">
+			<form autocomplete="off" action="signup" method="post" enctype="multipart/form-data">
 				 <label class="upload-img" for="file">
                     <img id="preview" src="./assets/camera.svg" alt="camera">
                     <p id="text-select">Selecione sua foto de perfil</p>
